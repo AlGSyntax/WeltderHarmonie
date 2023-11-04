@@ -1,7 +1,7 @@
 import kotlin.random.Random
 
 
-open class Cultivator (val name:String, var healthPoints:Int, var level:Int, val actions:MutableList<String>, val bag:String,
+open class Cultivator (val name:String, var healthPoints:Int, var level:Int, val actions:MutableList<Action>, val bag:String,
                        var defenseStatus:Boolean = true, var energy:Int = 0, open var defensePower:Int =10,var isConfused:Boolean=
                            false,var defenseValue:Int){
 
@@ -46,11 +46,12 @@ open class Cultivator (val name:String, var healthPoints:Int, var level:Int, val
     }
 
     fun generateActions(){
-       actions.add(Action("Schlag",10,0,0,"Angriff").toString())
-       actions.add(Action("Heilen",0,10,0,"Heilung").toString())
+       actions.add(Action("Schlag",10,0,0,"Angriff"))
+       actions.add(Action("Heilen",0,10,0,"Heilung"))
     }
-    fun openShop(shop:ItemShop){
-        shop.displayItems()
+
+    fun getActionByName(name: String): Action? {
+        return actions.find {it.name == name}
     }
 
 
