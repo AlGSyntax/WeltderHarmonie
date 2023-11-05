@@ -1,10 +1,10 @@
 open class Action(val name:String,val damageValue:Int,val healValue:Int,val defenseValue:Int,val type:String) {
 
-   open fun execute(actor: Cultivator,target:Any){
-       when(target){
-           is Enemy -> executeOnEnemy(actor, target)
-           is Cultivator -> executeOnCultivator(actor,target)
-           else -> println("Unbekannter Zieltyp")
+   open fun execute(actor: Any,target:Any){
+       when{
+           actor is Cultivator && target is Enemy -> executeOnEnemy(actor, target)
+           actor is Enemy && target is Cultivator ->executeOnCultivator(actor, target)
+           else -> println("Unbekannter Akteur- und Zieltypkombination")
        }
    }
 

@@ -1,6 +1,6 @@
-open class Geomancer(name:String,healthPoints:Int,level:Int,actions:MutableList<String>,
+open class Geomancer(name:String,healthPoints:Int,level:Int,actions:MutableList<Action>,
     bag:String,defenseStatus:Boolean,var earthPower:Int, var elementalPower:Int):Cultivator(name, healthPoints,
-    level, actions, bag, defenseStatus) {
+    level, actions, bag, defenseValue = 20) {
 
 
     fun createEarthWall() {

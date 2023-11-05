@@ -10,31 +10,66 @@ class BattleSystem(val taoistSect: MutableList<Cultivator>, var activeEnemy: Ene
             val action = actionChoice(cultivator)
             executeAction(cultivator, action, activeEnemy)
         }
+        if (activeEnemy is DualisticDemon && activeEnemy.healthPoints <= 20 ) {
+            (activeEnemy as? DualisticDemon)?.let {
+                val minion = it.summonMinion()
+                activeEnemy = minion
+            }
+        }
         val enemyAction = activeEnemy.chooseAction()
-        executeEnemyAction(activeEnemy, enemyAction)
+        executeEnemyAction(activeEnemy,enemyAction)
 
         reportRound()
 
-        if (isBattleOver()) {
+        if(isBattleOver())
             endOfTheBattle()
-        }
     }
 
 
-    fun executeAction(cultivator: Cultivator,action: Action,target: Enemy){
-        action.executeOnEnemy(cultivator,target)
+    fun executeAction(actor : Cultivator,action: Action,target: Any){
+        action.execute(actor,target)
     }
 
-    fun executeActionOnCultivator(cultivator: Cultivator, action: Action, target: Cultivator) {
-        action.executeOnEnemy(cultivator, target)
-    }
 
-    fun executeEnemyAction(enemy: Enemy, action: String) {
-        when (action) {
-            "Angriff" -> enemy.attack(taoistSect.random())
-            "SpezialAktion" -> enemy.specialAction(taoistSect)
-            "AoE-Zauber" -> enemy.castAoESpell(taoistSect)
 
+    fun executeEnemyAction(enemy: Enemy,action:String){
+        when(action){
+            "Angriff"->{
+                val target = taoistSect.random()
+                enemy.attack(target)
+            }
+            "SpezialAktion"->{
+                enemy.specialAction(taoistSect)
+            }
+            "AoE-Zauber" ->{
+                enemy.castAoESpell(taoistSect)
+            }
+            "Fluch"->{
+                val target = taoistSect.random()
+                enemy.curse(target)
+            }
+            else -> {
+                if(enemy is DualisticDemon){
+                    val target = taoistSect.random()
+                    when(action){
+                        "Verwirrung" -> enemy.confuse(target)
+                        "Chaos steigern" -> enemy.increaseChaos()
+                        "Dualistischer Schlag" -> enemy.dualisticStrike(target)
+                        "Chaotische Energieexplosion" -> enemy.chaoticEnergyBlast(target)
+                        "Balance wiederherstellen" -> enemy.restoreBalance()
+                        else -> println("Unbekannte Aktion.$action")
+                    }
+                }else if (enemy is DualMinion){
+                    val target = taoistSect.random()
+                    if(action == "Angriff und Bericht"){
+                        enemy.attackAndReport(target)
+                    }else{
+                        println("Unbekannte Aktion:$action")
+                    }
+                    }else{
+                        println("Unbekannte Aktion :$action")
+                }
+            }
         }
     }
 

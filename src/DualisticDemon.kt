@@ -49,4 +49,12 @@ open class DualisticDemon(name:String, healthPoints:Int, actions:MutableList<Str
     fun receiveReport() {
         println("Dual-Minion hat angegriffen!")
     }
+
+
+
+    fun summonMinion():DualMinion{
+        val minion = DualMinion("DualMinion",100, mutableListOf("Angriff und Bericht"),this)
+        println("$name beschwört einen DualMinion zur Unterstützung im Kampf")
+        return minion
+    }
 }

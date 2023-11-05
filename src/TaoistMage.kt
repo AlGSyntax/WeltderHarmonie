@@ -1,5 +1,5 @@
-open class TaoistMage(name:String,healthPoints:Int,level:Int,actions:MutableList<String>,bag:String,
-    defenseStatus:Boolean,open  val spellPower:Int):Cultivator(name, healthPoints, level, actions, bag, defenseStatus) {
+open class TaoistMage(name:String,healthPoints:Int,level:Int,actions:MutableList<Action>,bag:String,
+    defenseStatus:Boolean,open  val spellPower:Int):Cultivator(name, healthPoints, level, actions, bag, defenseValue = 20) {
 
 
     override var defensePower = 10
