@@ -1,5 +1,5 @@
-class Shaman(name:String,healthPoints:Int,level:Int,actions:MutableList<Action>,bag:String,defenseStatus:Boolean,
-    var healingPower:Int):Cultivator(name, healthPoints, level, actions, bag, defenseValue = 20) {
+class Shaman(name:String,healthPoints:Int,level:Int,actions:MutableList<Action>,defenseStatus:Boolean,
+    var healingPower:Int):Cultivator(name, healthPoints, level, actions,  defenseValue = 20) {
 
 
 

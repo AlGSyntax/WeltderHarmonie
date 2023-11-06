@@ -1,9 +1,11 @@
 import kotlin.random.Random
 
 
-open class Cultivator (val name:String, var healthPoints:Int, var level:Int, val actions:MutableList<Action>, val bag:String,
-                       var defenseStatus:Boolean = true, var energy:Int = 0, var damageValue:Int = 0, open var defensePower:Int =10,var isConfused:Boolean=
-                           false,var defenseValue:Int){
+open class Cultivator (val name:String, var healthPoints:Int, var level:Int, val actions:MutableList<Action>,
+                        var defenseStatus:Boolean = true,  var energy:Int = 0,
+                       var damageValue:Int = 0,
+                       open var defensePower:Int =10,  var isConfused:Boolean=
+                           false,  var defenseValue:Int){
 
 
 
@@ -38,6 +40,8 @@ open class Cultivator (val name:String, var healthPoints:Int, var level:Int, val
                 " $opponent.name hat jetzt ${opponent.healthPoints} Gesundheitspunkte")
     }
 
+
+    var taoistBag = Bag()
 
     open fun cultivate(){
         val energyGained = 10

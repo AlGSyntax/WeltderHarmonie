@@ -1,4 +1,4 @@
-open class Action(val name:String,val damageValue:Int,val healValue:Int,val defenseValue:Int,val type:String) {
+open class Action(val name:String, val damageValue:Int, val healValue:Int, val defenseValue:Int, val type: String) {
 
    open fun execute(actor: Any,target:Any){
        when{
@@ -8,7 +8,7 @@ open class Action(val name:String,val damageValue:Int,val healValue:Int,val defe
        }
    }
 
-    private fun executeOnEnemy(actor: Cultivator, target: Enemy) {
+    fun executeOnEnemy(actor: Cultivator, target: Enemy) {
         when(type){
             "Angriff" ->{
                 target.healthPoints -= damageValue
@@ -47,8 +47,7 @@ open class Action(val name:String,val damageValue:Int,val healValue:Int,val defe
             else -> println("Unbekannter Aktionstyp:$type")
         }
     }
-
-    }
+}
 
 
 

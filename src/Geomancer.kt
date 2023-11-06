@@ -1,12 +1,13 @@
-open class Geomancer(name:String,healthPoints:Int,level:Int,actions:MutableList<Action>,
-    bag:String,defenseStatus:Boolean,var earthPower:Int, var elementalPower:Int):Cultivator(name, healthPoints,
-    level, actions, bag, defenseValue = 20) {
+open class Geomancer(name:String, healthPoints:Int, level:Int, actions:MutableList<Action>,
+                      defenseStatus:Boolean, open var earthPower:Int, open var elementalPower:Int):Cultivator(name, healthPoints,
+    level, actions,  defenseValue = 20) {
 
 
     fun createEarthWall() {
         val defenseBoost = 10
         defensePower += defenseBoost
-        println("")
+        println("$name erstellt eine Erdmauer und erhöht die Verteidigungskraft um" +
+                "$defenseBoost.")
     }
 
 

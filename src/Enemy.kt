@@ -1,12 +1,12 @@
 import kotlin.random.Random
 
 open class Enemy (
-    val name:String, var healthPoints: Int ,val actions:MutableList<String>
+    val name:String, var healthPoints: Int ,val actions:MutableList<Action>
 ){
     var defensePower:Int = 10
 
 
-    fun attack(target:Cultivator){
+    open fun attack(target:Cultivator){
         val minDamage = 5
         val maxDamage = 15
         val damage = Random.nextInt(minDamage,maxDamage +1)
@@ -40,7 +40,7 @@ open class Enemy (
                     "20 % sind.")
         }
     }
-    fun chooseAction(): String {
+    fun chooseAction(): Action {
         return actions.random()
     }
 }
