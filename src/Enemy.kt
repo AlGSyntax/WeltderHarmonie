@@ -1,3 +1,4 @@
+import kotlin.math.max
 import kotlin.random.Random
 
 open class Enemy (
@@ -11,6 +12,8 @@ open class Enemy (
         val maxDamage = 15
         val damage = Random.nextInt(minDamage,maxDamage +1)
         val actualDamage = if (damage > target.defensePower) damage - target.defensePower else 0
+        target.healthPoints -= actualDamage
+        target.healthPoints = max(target.healthPoints,0)
         println("$name greift ${target.name} an und verursacht $actualDamage")
     }
 

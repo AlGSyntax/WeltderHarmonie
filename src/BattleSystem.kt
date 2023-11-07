@@ -32,7 +32,7 @@ class BattleSystem(val taoistSect: MutableList<Cultivator>, var activeEnemy: Ene
 
 
 
-    fun executeEnemyAction(enemy: Enemy,action:String){
+    fun executeEnemyAction(enemy: Enemy,action:Any){
         when(action){
             "Angriff"->{
                 val target = taoistSect.random()
