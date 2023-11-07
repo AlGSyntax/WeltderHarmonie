@@ -11,7 +11,7 @@ class DualMinion(name:String, healthPoints:Int, action:MutableList<Action>, priv
         println("$name berichtet dem Meister $master.name über den Angriff.")
     }
 
-    fun enhanceMasterAttack(){
+    fun enhanceMasterAttack(target:Enemy){
         println("$name verleiht $master einen Angriffsbonus.")
         master.attackBoost += 5
     }
