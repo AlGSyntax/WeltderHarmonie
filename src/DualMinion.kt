@@ -12,10 +12,16 @@ import kotlin.random.Random
  * @property master : Eine Referenz zu dem DualisticDemon, zu dem der DualMinion gehört.
  * @constructor : Erstellt einen DualMinion, mit gegebenen Eigenschaften und Fähigkeiten.
  */
-class DualMinion(name: String, healthPoints: Int, action: MutableList<Action>, private var master: DualisticDemon) :
-    Enemy(
-        name, healthPoints, action,
-        isIntimitated = false
+class DualMinion(
+    name: String,
+    healthPoints: Int,
+    action: MutableList<Action>,
+    private var master: DualisticDemon
+) : Enemy(
+    name,
+    healthPoints,
+    action,
+    isIntimitated = false
     ) {
     /**
      * Greift ein Ziel an, und berichtet dem Meister über das Ergebnis des Angriffs.
@@ -34,10 +40,10 @@ class DualMinion(name: String, healthPoints: Int, action: MutableList<Action>, p
      * Verstärkt den Angriff des Meisters durch Übertragung von Bonusangriffspunkten.
      * @param target : Das Ziel das der Meister angreifen wird.
      */
-    fun enhanceMasterAttack(target: Enemy) {
-        println("$name verleiht $master einen Angriffsbonus.")
-        master.attackBoost += 5
-    }
+//    fun enhanceMasterAttack(target: Enemy) {
+//        println("$name verleiht $master einen Angriffsbonus.")
+//        master.attackBoost += 5
+//    }
 
     /**
      * Schwächt die Verteidigung eines Kultivatorziels.
@@ -61,10 +67,10 @@ class DualMinion(name: String, healthPoints: Int, action: MutableList<Action>, p
     /**
      * Heilt den Meister um einen festen Betrag an Gesundheitspunkten.
      */
-    fun healMasterFlat() {
-        val healAmount = 10
-        println("$name heilt $master um $healAmount HP.")
-        master.healthPoints += healAmount.coerceAtMost(master.maxHealthPoints - master.healthPoints)
-    }
+//    fun healMasterFlat() {
+//        val healAmount = 10
+//        println("$name heilt $master um $healAmount HP.")
+//        master.healthPoints += healAmount.coerceAtMost(master.maxHealthPoints - master.healthPoints)
+//    }
 
 }

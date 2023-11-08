@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0fceb7d9-d8bc-4ad6-94f9-7d11963f0aa8" name="Changes" comment="Änderungen vorgenommen.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Action.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Action.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BattleSystem.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombatSystem.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cultivator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cultivator.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DualisticDemon.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/DualisticDemon.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Enemy.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Enemy.kt" afterDir="false" />
-    </list>
+    <list default="true" id="0fceb7d9-d8bc-4ad6-94f9-7d11963f0aa8" name="Changes" comment="Änderungen vorgenommen." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

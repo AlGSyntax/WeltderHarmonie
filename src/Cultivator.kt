@@ -20,13 +20,19 @@ import kotlin.random.Random
  * @constructor Erstellt einen neuen Cultivator mit Basisattributen und Fähigkeiten.
  */
 open class Cultivator(
-    val name: String, open var healthPoints: Int, var level: Int, val actions: MutableList<Action>,
-    var defenseStatus: Boolean = true, var energy: Int = 0,
+    val name: String,
+    open var healthPoints: Int,
+    var level: Int,
+    val actions: MutableList<Action>,
+    var defenseStatus: Boolean = true,
+    var energy: Int = 0,
     var damageValue: Int = 0,
-    open var defensePower: Int = 10, var isConfused: Boolean =
-        false, var defenseValue: Int, val maxHealthPoints: Int = 100
+    open var defensePower: Int = 10,
+    var isConfused: Boolean = false,
+    var defenseValue: Int,
+    val maxHealthPoints: Int = 100
 ) {
-
+    var taoistBag = Bag()
 
     /**
      * Greift einen Gegner an und fügt ihm Schaden zu.
@@ -39,8 +45,8 @@ open class Cultivator(
         opponent.healthPoints -= damage
         opponent.healthPoints = max(opponent.healthPoints, 0)
         println(
-            "$name greift $opponent.name an und verursacht $damage Schadenspunkte.$opponent.name hat jetzt ${opponent.healthPoints}" +
-                    "Gesundheitspunkte."
+            "$name greift ${opponent.name} an und verursacht $damage Schadenspunkte.${opponent.name} hat jetzt ${opponent.healthPoints}" +
+                    " Gesundheitspunkte."
         )
     }
 
@@ -71,18 +77,15 @@ open class Cultivator(
      * Führt eine besondere Aktion aus, die allen Gegnern in der Liste Schaden zufügt.
      * @param opponents Eine Liste von Gegnern, die von der Aktion betroffen sind.
      */
-    open fun specialAction(opponents: Enemy) {
+    open fun specialAction(opponent: Enemy) {
         val specialDamage = 20
-        opponents.forEach { opponent ->
-            opponent.healthPoints -= specialDamage
-            println(
-                "$name führt eine spezielle Aktion aus und verursacht $specialDamage Schadenspunkte. " +
-                        "${opponent.name} hat jetzt ${opponent.healthPoints} Gesundheitspunkte."
-            )
-        }
-    }
+        opponent.healthPoints -= specialDamage
+        println(
+            "$name führt eine besondere Aktion aus und verursacht $specialDamage Schadenspunkte. " +
+                    "${opponent.name} hat jetzt ${opponent.healthPoints} Gesundheitspunkte."
+        )
 
-    var taoistBag = Bag()
+    }
 
 
     /**
@@ -100,9 +103,6 @@ open class Cultivator(
      * @param name Der Name der Aktion, die gesucht wird.
      * @return Die gefundene Aktion oder null, falls keine Aktion mit diesem Namen existiert.
      */
-    fun getActionByName(name: String): Action? {
-        return actions.find { it.name == name }
-    }
 
 
 }

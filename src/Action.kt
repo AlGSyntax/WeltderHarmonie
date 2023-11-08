@@ -1,4 +1,9 @@
-open class Action(val name: String, val damageValue: Int, val healValue: Int, val defenseValue: Int, val type: String) {
+open class Action(
+    val name: String,
+    val damageValue: Int,
+    val healValue: Int,
+    val defenseValue: Int,
+    val type: String) {
 
     open fun execute(actor: Any, target: Any) {
         when (actor) {
@@ -29,7 +34,7 @@ open class Action(val name: String, val damageValue: Int, val healValue: Int, va
             "Angriff" -> actor.attack(target)
             "Heilung" -> actor.heal(10)
             "Verteidigung" -> actor.defend(10)
-            "SpezialAction" -> actor.specialAction(target)
+//            "SpezialAction" -> actor.specialAction(targets)
             else -> println("Unbekannte Aktion: $type")
         }
     }

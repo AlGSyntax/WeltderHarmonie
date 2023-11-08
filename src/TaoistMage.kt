@@ -16,8 +16,12 @@
  */
 
 open class TaoistMage(
-    name: String, healthPoints: Int, level: Int, actions: MutableList<Action>,
-    defenseStatus: Boolean, val spellPower: Int
+    name: String,
+    healthPoints: Int,
+    level: Int, actions:
+    MutableList<Action>,
+    defenseStatus: Boolean,
+    val spellPower: Int
 ) : Cultivator(
     name, healthPoints, level, actions,
     defenseValue = 20

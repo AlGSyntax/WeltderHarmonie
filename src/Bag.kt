@@ -33,8 +33,8 @@ class Bag {
      * @return Eine Nachricht, die das Ergebnis der Aktion beschreibt.
      */
 
-    fun useItem(itemName: String, target: Cultivator): String {
-        val item = items.find { it.name == itemName }
+    fun useItem(itemName: Item, target: Cultivator): String {
+        val item = items.find { it.name == itemName.name }
         return if (item != null) {
             items.remove(item)
             item.use(target)

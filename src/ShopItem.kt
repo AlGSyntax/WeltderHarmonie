@@ -8,9 +8,12 @@
  * @property quantity Die Anzahl, wie oft das Item im Shop verfügbar ist.
  * @constructor Erstellt ein neues ShopItem, das im ItemShop zum Verkauf angeboten werden kann.
  */
-class ShopItem(name:String, effectDescription: String,val cost:Int, var quantity:Int):Item(name,effectDescription) {
-
-
+class ShopItem(
+    name:String,
+    effectDescription: String,
+    val cost:Int,
+    var quantity:Int
+):Item(name,effectDescription) {
 
     /**
      * Erstellt eine Kopie dieses ShopItems mit einer spezifischen Menge.

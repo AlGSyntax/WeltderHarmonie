@@ -11,7 +11,9 @@ import kotlin.random.Random
  * @property chaosLevel Ein Wert, der das aktuelle Niveau des Chaos widerspiegelt, das der DualisticDemon erzeugt hat.
  * @constructor Erstellt einen neuen DualisticDemon mit spezifischen Eigenschaften und Fähigkeiten.
  */
-open class DualisticDemon(name: String, healthPoints: Int, actions: MutableList<Action>, var chaosLevel: Int) : Enemy(
+open class DualisticDemon(name: String,
+                          healthPoints: Int, actions: MutableList<Action>,
+                          var chaosLevel: Int) : Enemy(
     name, healthPoints,
     actions, isIntimitated = false
 ) {
@@ -80,7 +82,7 @@ open class DualisticDemon(name: String, healthPoints: Int, actions: MutableList<
      * Führt eine spezielle Aktion aus, die auf das Chaos-Level basiert und allen Zielen Schaden zufügt.
      * @param targets Die Liste von Kultivatoren, die von der Aktion betroffen sind.
      */
-    override fun specialAction(targets: Cultivator) {
+    override fun specialAction(targets: List<Cultivator>) {
         val chaosDamage = chaosLevel * 5
         for (target in targets) {
             target.healthPoints -= chaosDamage

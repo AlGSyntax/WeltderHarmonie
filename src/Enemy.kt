@@ -12,7 +12,10 @@ import kotlin.random.Random
  * @property defensePower Die Verteidigungskraft des Gegners, die eingehenden Schaden reduzieren kann.
  */
 open class Enemy(
-    val name: String, var healthPoints: Int, val actions: MutableList<Action>, var isIntimitated: Boolean
+    val name: String,
+    var healthPoints: Int,
+    val actions: MutableList<Action>,
+    var isIntimitated: Boolean
 ) {
     var defensePower: Int = 10
 
@@ -35,7 +38,7 @@ open class Enemy(
      * Führt eine spezielle Aktion aus, die von der spezifischen Gegnerklasse definiert wird.
      * @param targets Eine Liste von Cultivator-Zielen, die von der Aktion betroffen sein könnten.
      */
-    open fun specialAction(targets: Cultivator) {
+    open fun specialAction(targets: List<Cultivator>) {
         println("$name führt eine spezielle Aktion aus.")
     }
 
