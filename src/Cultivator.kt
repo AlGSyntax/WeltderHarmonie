@@ -6,7 +6,7 @@ open class Cultivator (val name:String, open var healthPoints:Int, var level:Int
                         var defenseStatus:Boolean = true,  var energy:Int = 0,
                        var damageValue:Int = 0,
                        open var defensePower:Int =10,  var isConfused:Boolean=
-                           false,  var defenseValue:Int){
+                           false,  var defenseValue:Int,val maxHealthPoints:Int =100){
 
 
 
@@ -52,10 +52,7 @@ open class Cultivator (val name:String, open var healthPoints:Int, var level:Int
         println("$name kultiviert die daoistische Energie")
     }
 
-    fun generateActions(){
-       actions.add(Action("Schlag",10,0,0,"Angriff"))
-       actions.add(Action("Heilen",0,10,0,"Heilung"))
-    }
+
 
     fun getActionByName(name: String): Action? {
         return actions.find {it.name == name}

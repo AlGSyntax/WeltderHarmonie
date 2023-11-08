@@ -2,7 +2,7 @@ import kotlin.math.max
 import kotlin.random.Random
 
 open class Enemy (
-    val name:String, var healthPoints: Int ,val actions:MutableList<Action>
+    val name:String, var healthPoints: Int ,val actions:MutableList<Action>, var isIntimitated :Boolean
 ){
     var defensePower:Int = 10
 
