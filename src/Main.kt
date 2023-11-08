@@ -4,6 +4,8 @@ fun main()
 {
     val taoistSect = cultivators()
     val enemies = enemies()
+    val bag = bag()
+
 
     // Spielablauf
     var round = 1
@@ -15,7 +17,7 @@ fun main()
     {
         println("Runde $round beginnt...")
         var combatSystem: CombatSystem
-        combatSystem = CombatSystem(taoistSect, enemies.first())
+        combatSystem = CombatSystem(taoistSect, enemies.first(), bag)
         combatSystem.start()
         combatSystem.executeRound()
 
@@ -32,6 +34,15 @@ fun main()
         println("Alle Feinde wurden besiegt. Die Taoisten haben gewonnen!")
     }
 
+}
+
+private fun bag(): Bag {
+    val bagForCultivator = Bag()
+    bagForCultivator.addItem(Item("Yin Yang Ring", "It will give you 3x health points"), 2)
+    bagForCultivator.addItem(Item("Qi-Harmonisator", "It will give you 3x health points"), 3)
+    bagForCultivator.addItem(Item("Drachenperle", "It will give you 3x health points"), 1)
+
+    return bagForCultivator
 }
 
 
@@ -109,6 +120,7 @@ private fun cultivators(): List<Cultivator> {
     val shaman = Shaman("Xiaoli", 100, 1, actionsForShaman, defenseStatus = false, shamanHealingPower)
     val geomancer = Geomancer("Lian", 100, 1, actionsForGeomancer, defenseStatus = false, geomancerEarthPower, 20)
     val taoistSect = listOf(taoistMage, shaman, geomancer)
+
     return taoistSect
 }
 

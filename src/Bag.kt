@@ -16,11 +16,10 @@ class Bag {
      */
     fun addItem(item: Item, quantityToAdd: Int = 1) {
         val existingItem = items.find { it.name == item.name }
-        if (existingItem != null && existingItem is ShopItem) {
+        if (existingItem != null) {
             existingItem.quantity += quantityToAdd
-        } else if (existingItem == null && item is ShopItem) {
-            items.add(item.copy(quantity = quantityToAdd))
-        } else if (existingItem == null) {
+        } else {
+            item.quantity = quantityToAdd
             items.add(item)
         }
     }
@@ -55,6 +54,13 @@ class Bag {
             "Items im Beutel: $itemList"
         } else {
             "Der Beutel ist leer."
+        }
+    }
+
+    fun removeItem(choosenItem: Item) {
+        choosenItem.quantity--
+        if (choosenItem.quantity == 0) {
+            items.remove(choosenItem)
         }
     }
 }

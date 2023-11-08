@@ -32,7 +32,7 @@ open class Cultivator(
     var defenseValue: Int,
     val maxHealthPoints: Int = 100
 ) {
-    var taoistBag = Bag()
+    val taoistBag = Bag()
 
     /**
      * Greift einen Gegner an und fügt ihm Schaden zu.

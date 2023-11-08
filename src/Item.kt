@@ -5,7 +5,7 @@
  * @property name Der einzigartige Name des Items.
  * @property effectDescription Die Beschreibung des Effekts, den das Item hat, wenn es verwendet wird.
  */
-open class Item(val name: String, val effectDescription: String) {
+open class Item(val name: String, val effectDescription: String, var quantity: Int = 1) {
 
 
     /**

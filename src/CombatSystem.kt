@@ -1,7 +1,7 @@
 import kotlin.random.Random
 
-class CombatSystem(val taoistSect: List<Cultivator>, var activeEnemy: Enemy) {
-
+class CombatSystem(val taoistSect: List<Cultivator>, var activeEnemy: Enemy, val bag: Bag) {
+var isItemUsed = false
 
     fun start() {
         println("Der Kampf beginnt")
@@ -9,8 +9,8 @@ class CombatSystem(val taoistSect: List<Cultivator>, var activeEnemy: Enemy) {
 
     fun executeRound() {
         for (cultivator in taoistSect) {
-            val action = actionChoice(cultivator) //action choosen
-            executeAction(cultivator, action, activeEnemy)
+            println("${cultivator.name} ist an der Reihe.")
+            chooseBagOrAction(cultivator)
         }
 
         println(activeEnemy.name + " hat jetzt " + activeEnemy.healthPoints + " Gesundheitspunkte.")
@@ -32,6 +32,48 @@ class CombatSystem(val taoistSect: List<Cultivator>, var activeEnemy: Enemy) {
             endOfTheBattle()
     }
 
+    private fun chooseBagOrAction(cultivator: Cultivator) {
+        if(isItemUsed){
+            println(" Choose an action")
+            val action = actionChoice(cultivator) //action choosen
+            executeAction(cultivator, action, activeEnemy)
+        }
+        else
+        {
+            println("Choose from the following options:")
+            println("1. Choose item from bag")
+            println("2. Choose an action")
+            val userChoice = readln().toInt()
+            if (userChoice == 1 && !isItemUsed) {
+                chooseItem(cultivator)
+            }
+            else if (userChoice == 2) {
+                val action = actionChoice(cultivator) //action choosen
+                executeAction(cultivator, action, activeEnemy)
+            }
+            else {
+                println("Invalid choice, please try again.")
+                chooseBagOrAction(cultivator)
+            }
+        }
+
+
+    }
+    private fun chooseItem(cultivator: Cultivator) {
+        isItemUsed = true
+        println("${cultivator.name}, choose an item:")
+        bag.items.forEachIndexed { index, item -> println("$index:${item.name} ${item.quantity}" )  }
+        val userChoice = readln()
+        val chosenItemIndex = userChoice.toIntOrNull()
+        if (chosenItemIndex != null && chosenItemIndex in bag.items.indices) {
+            val choosenItem = bag.items[chosenItemIndex]
+            println(choosenItem.use(cultivator))
+            bag.removeItem(choosenItem)
+
+        } else {
+            println("Ungültige Auswahl, bitte versuche es erneut.")
+            chooseItem(cultivator)
+        }}
 
     fun executeAction(actor: Cultivator, action: Action, target: Any) {
         action.execute(actor, target)
