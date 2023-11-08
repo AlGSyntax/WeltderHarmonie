@@ -12,16 +12,17 @@ import kotlin.random.Random
  * @property master : Eine Referenz zu dem DualisticDemon, zu dem der DualMinion gehört.
  * @constructor : Erstellt einen DualMinion, mit gegebenen Eigenschaften und Fähigkeiten.
  */
-class DualMinion(name:String, healthPoints:Int, action:MutableList<Action>, private var master:DualisticDemon):Enemy(name,healthPoints,action,
-    isIntimitated = false
-)
-{
+class DualMinion(name: String, healthPoints: Int, action: MutableList<Action>, private var master: DualisticDemon) :
+    Enemy(
+        name, healthPoints, action,
+        isIntimitated = false
+    ) {
     /**
      * Greift ein Ziel an, und berichtet dem Meister über das Ergebnis des Angriffs.
      * @param target : Repräsentiert den Kultivator, der Ziel des Angriffs ist
      */
-    fun attackAndReport(target:Cultivator){
-        val damage =Random.nextInt(5,15)
+    fun attackAndReport(target: Cultivator) {
+        val damage = Random.nextInt(5, 15)
         target.healthPoints -= damage
         println("$name greift ${target.name} an und verursacht $damage Schadenspunkte.")
         master.receiveReport()
@@ -33,26 +34,34 @@ class DualMinion(name:String, healthPoints:Int, action:MutableList<Action>, priv
      * Verstärkt den Angriff des Meisters durch Übertragung von Bonusangriffspunkten.
      * @param target : Das Ziel das der Meister angreifen wird.
      */
-    fun enhanceMasterAttack(target:Enemy){
+    fun enhanceMasterAttack(target: Enemy) {
         println("$name verleiht $master einen Angriffsbonus.")
         master.attackBoost += 5
     }
 
     /**
-     *
+     * Schwächt die Verteidigung eines Kultivatorziels.
+     * @param target Der Kultivator, dessen Verteidigung geschwächt wird.
      */
 
-    fun weakenEnemiesDefense(target: Cultivator){
+    fun weakenEnemiesDefense(target: Cultivator) {
         println("$name schwächt die Verteidigung von ${target.name}.")
         target.defenseValue -= 5
     }
 
-    fun confuseEnemy(target: Cultivator){
+    /**
+     * Verwirrt einen Kultivator, wodurch dieser seine nächste Aktion verliert.
+     * @param target Der Kultivator, der verwirrt wird.
+     */
+    fun confuseEnemy(target: Cultivator) {
         println("$name verwirrt ${target.name}, was ihn seine nächste Aktion verlieren lässt.")
         target.isConfused = true
     }
 
-    fun healMasterFlat(){
+    /**
+     * Heilt den Meister um einen festen Betrag an Gesundheitspunkten.
+     */
+    fun healMasterFlat() {
         val healAmount = 10
         println("$name heilt $master um $healAmount HP.")
         master.healthPoints += healAmount.coerceAtMost(master.maxHealthPoints - master.healthPoints)
