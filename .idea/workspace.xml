@@ -6,14 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="0fceb7d9-d8bc-4ad6-94f9-7d11963f0aa8" name="Changes" comment="Änderungen vorgenommen.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Bag.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bag.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Action.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Action.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BattleSystem.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombatSystem.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Cultivator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cultivator.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DualMinion.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/DualMinion.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DualisticDemon.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/DualisticDemon.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Enemy.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Enemy.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Item.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Item.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ItemShop.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/ItemShop.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ShopItem.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/ShopItem.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,7 +126,15 @@
       <option name="project" value="LOCAL" />
       <updated>1699438233421</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Änderungen vorgenommen.">
+      <option name="closed" value="true" />
+      <created>1699442607922</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1699442607922</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

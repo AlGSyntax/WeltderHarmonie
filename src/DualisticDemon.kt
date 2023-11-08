@@ -80,7 +80,7 @@ open class DualisticDemon(name: String, healthPoints: Int, actions: MutableList<
      * Führt eine spezielle Aktion aus, die auf das Chaos-Level basiert und allen Zielen Schaden zufügt.
      * @param targets Die Liste von Kultivatoren, die von der Aktion betroffen sind.
      */
-    override fun specialAction(targets: List<Cultivator>) {
+    override fun specialAction(targets: Cultivator) {
         val chaosDamage = chaosLevel * 5
         for (target in targets) {
             target.healthPoints -= chaosDamage

@@ -3,7 +3,7 @@ import kotlin.random.Random
 
 
 /**
- * Enemy repräsentiert eine generische Gegnerklasse in einem Kampfspiel. Sie hat grundlegende Angriffsfähigkeiten
+ * Enemy repräsentiert eine generische Gegnerk lasse in einem Kampfspiel. Sie hat grundlegende Angriffsfähigkeiten
  * und kann spezielle Aktionen ausführen, die auf einer Gruppe von Zielen oder einem einzelnen Ziel basieren.
  *
  * @property name Der Name des Gegners, einzigartig in der Spielwelt.
@@ -30,11 +30,12 @@ open class Enemy(
         println("$name greift ${target.name} an und verursacht $actualDamage")
     }
 
+
     /**
      * Führt eine spezielle Aktion aus, die von der spezifischen Gegnerklasse definiert wird.
      * @param targets Eine Liste von Cultivator-Zielen, die von der Aktion betroffen sein könnten.
      */
-    open fun specialAction(targets: List<Cultivator>) {
+    open fun specialAction(targets: Cultivator) {
         println("$name führt eine spezielle Aktion aus.")
     }
 
@@ -70,5 +71,29 @@ open class Enemy(
                         "20 % sind."
             )
         }
+    }
+
+
+    /**
+     * Heilt den Gegner um einen festgelegten Betrag.
+     * Die Heilung ist auf die maximalen Gesundheitspunkte des Gegners begrenzt.
+     *
+     * @param amount Die Menge an Gesundheitspunkten, um die der Gegner geheilt werden soll.
+     */
+    open fun heal(amount: Int) {
+        val healAmount = amount.coerceAtMost(healthPoints)
+        healthPoints += healAmount
+        println("$name heilt sich um $healAmount Gesundheitspunkte.")
+    }
+
+    /**
+     * Erhöht die Verteidigungskraft des Gegners, um den Schaden durch Angriffe zu reduzieren.
+     * Diese Methode kann verwendet werden, um die Überlebensfähigkeit des Gegners im Kampf zu erhöhen.
+     *
+     * @param increase Die Menge, um die die Verteidigungskraft erhöht werden soll.
+     */
+    open fun defend(increase: Int) {
+        defensePower += increase
+        println("$name erhöht seine Verteidigungskraft um $increase.")
     }
 }

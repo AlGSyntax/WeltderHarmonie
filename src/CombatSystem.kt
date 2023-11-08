@@ -1,4 +1,4 @@
-class BattleSystem(val taoistSect: MutableList<Cultivator>, var activeEnemy: Enemy) {
+class CombatSystem(val taoistSect: MutableList<Cultivator>, var activeEnemy: Enemy) {
 
 
     fun start() {

@@ -32,7 +32,7 @@ open class Cultivator(
      * Greift einen Gegner an und fügt ihm Schaden zu.
      * @param opponent Der Gegner, der angegriffen wird.
      */
-    fun attack(opponent: Enemy) {
+    open fun attack(opponent: Enemy) {
         val minDamage = 5
         val maxDamage = 15
         val damage = Random.nextInt(minDamage, maxDamage + 1)
@@ -48,7 +48,7 @@ open class Cultivator(
     /**
      * Wechselt in eine defensive Haltung, um Schaden zu reduzieren.
      */
-    fun defend() {
+    open fun defend() {
         defenseStatus = true
         println("$name verteidigt sich.")
     }
@@ -57,7 +57,7 @@ open class Cultivator(
     /**
      * Heilt den Cultivator um eine feste Anzahl von Gesundheitspunkten.
      */
-    fun heal() {
+    open fun heal() {
         val healAmount = 10
         healthPoints += healAmount
         println(
@@ -71,7 +71,7 @@ open class Cultivator(
      * Führt eine besondere Aktion aus, die allen Gegnern in der Liste Schaden zufügt.
      * @param opponents Eine Liste von Gegnern, die von der Aktion betroffen sind.
      */
-    open fun specialAction(opponents: List<Enemy>) {
+    open fun specialAction(opponents: Enemy) {
         val specialDamage = 20
         opponents.forEach { opponent ->
             opponent.healthPoints -= specialDamage
