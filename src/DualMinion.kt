@@ -8,7 +8,7 @@ import kotlin.random.Random
  *
  * @property name : Der einzigartige Name des DualMinion.
  * @property healthPoints : Die Gesundheitspunkte des DualMinion.
- * @property action : Eine Liste von Aktionen, die der DualMinion ausführen kann.
+
  * @property master : Eine Referenz zu dem DualisticDemon, zu dem der DualMinion gehört.
  * @constructor : Erstellt einen DualMinion, mit gegebenen Eigenschaften und Fähigkeiten.
  */
@@ -38,7 +38,7 @@ class DualMinion(
 
     /**
      * Verstärkt den Angriff des Meisters durch Übertragung von Bonusangriffspunkten.
-     * @param target : Das Ziel das der Meister angreifen wird.
+
      */
 //    fun enhanceMasterAttack(target: Enemy) {
 //        println("$name verleiht $master einen Angriffsbonus.")

@@ -1,25 +1,24 @@
 import kotlin.math.max
 import kotlin.random.Random
 
-
 /**
- * Ein Cultivator ist eine Klasse, die sich auf das Kultivieren von Energie und das Ausführen von Kampfaktionen spezialisiert hat.
- * Sie können angreifen, sich verteidigen, heilen und besondere Aktionen ausführen.
+ * A Cultivator is a class specialized in cultivating energy and executing combat actions.
+ * They can attack, defend, heal, and perform special actions.
  *
- * @property name Der eindeutige Name des Cultivators.
- * @property healthPoints Die aktuelle Anzahl an Gesundheitspunkten des Cultivators, welche die Lebenskraft darstellen.
- * @property level Das Level des Cultivators, welches die Erfahrung und Macht angibt.
- * @property actions Eine Liste von Aktionen, die der Cultivator ausführen kann.
- * @property defenseStatus Ein boolescher Wert, der angibt, ob sich der Cultivator in einer defensiven Haltung befindet.
- * @property energy Die aktuelle Menge an gespeicherter Energie, die für besondere Aktionen verwendet werden kann.
- * @property damageValue Der Grundschadenswert des Cultivators.
- * @property defensePower Die Grundverteidigungskraft des Cultivators.
- * @property isConfused Ein boolescher Wert, der angibt, ob der Cultivator verwirrt ist.
- * @property defenseValue Der Grundwert der Verteidigung, der Schaden von Angriffen abzieht.
- * @property maxHealthPoints Die maximalen Gesundheitspunkte des Cultivators.
- * @constructor Erstellt einen neuen Cultivator mit Basisattributen und Fähigkeiten.
+ * @property name: The unique name of the Cultivator.
+ * @property healthPoints: The current number of health points of the Cultivator, representing life force.
+ * @property level: The level of the Cultivator, indicating experience and power.
+ * @property actions: A list of actions that the Cultivator can perform.
+ * @property defenseStatus: A boolean value indicating whether the Cultivator is in a defensive stance.
+ * @property energy: The current amount of stored energy that can be used for special actions.
+ * @property damageValue: The base damage value of the Cultivator.
+ * @property defensePower: The base defense power of the Cultivator.
+ * @property isConfused: A boolean value indicating whether the Cultivator is confused.
+ * @property defenseValue: The base defense value subtracting damage from attacks.
+ * @property maxHealthPoints: The maximum health points of the Cultivator.
+ * @constructor: Creates a new Cultivator with basic attributes and abilities.
  */
-open class Cultivator(
+abstract class Cultivator(
     val name: String,
     open var healthPoints: Int,
     var level: Int,
@@ -32,79 +31,58 @@ open class Cultivator(
     var defenseValue: Int,
     val maxHealthPoints: Int = 100
 ) {
-    val taoistBag = Bag()
 
     /**
-     * Greift einen Gegner an und fügt ihm Schaden zu.
-     * @param opponent Der Gegner, der angegriffen wird.
+     * Attacks an opponent and inflicts damage.
+     * @param opponent: The opponent being attacked.
      */
     open fun attack(opponent: Enemy) {
-        val minDamage = 5
-        val maxDamage = 15
+        val minDamage = 15
+        val maxDamage = 25
         val damage = Random.nextInt(minDamage, maxDamage + 1)
         opponent.healthPoints -= damage
         opponent.healthPoints = max(opponent.healthPoints, 0)
         println(
-            "$name greift ${opponent.name} an und verursacht $damage Schadenspunkte.${opponent.name} hat jetzt ${opponent.healthPoints}" +
-                    " Gesundheitspunkte."
+            "$name attacks ${opponent.name} and deals $damage damage. ${opponent.name} now has ${opponent.healthPoints}" +
+                    " health points."
         )
     }
 
-
     /**
-     * Wechselt in eine defensive Haltung, um Schaden zu reduzieren.
+     * Switches to a defensive stance to reduce damage.
      */
-    open fun defend() {
+    open fun defend(cultivator: Cultivator) {
         defenseStatus = true
-        println("$name verteidigt sich.")
+        println("$name defends itself.")
     }
 
-
     /**
-     * Heilt den Cultivator um eine feste Anzahl von Gesundheitspunkten.
+     * Heals the Cultivator by a fixed number of health points.
      */
-    open fun heal() {
-        val healAmount = 10
-        healthPoints += healAmount
+    open fun heal(cultivator: Cultivator) {
+        val healingAmount = 20
+        cultivator.healthPoints += healingAmount
         println(
-            "$name heilt sich selbst und erhält $healAmount Gesundheitspunkte. $name hat jetzt" +
-                    "$healthPoints Gesundheitspunkte. "
+            "$name heals $cultivator.name for $healingAmount health points." +
+                    "$cultivator.name now has ${cultivator.healthPoints} health points."
         )
     }
 
 
     /**
-     * Führt eine besondere Aktion aus, die allen Gegnern in der Liste Schaden zufügt.
-     * @param opponents Eine Liste von Gegnern, die von der Aktion betroffen sind.
+     * Performs a special action, dealing damage to all enemies in the list.
+     * @param enemy: The enemy affected by the action.
      */
-    open fun specialAction(opponent: Enemy) {
+    open fun specialAction(enemy: Enemy) {
         val specialDamage = 20
-        opponent.healthPoints -= specialDamage
+        enemy.healthPoints -= specialDamage
         println(
-            "$name führt eine besondere Aktion aus und verursacht $specialDamage Schadenspunkte. " +
-                    "${opponent.name} hat jetzt ${opponent.healthPoints} Gesundheitspunkte."
+            "$name performs a special action, dealing $specialDamage damage. " +
+                    "${enemy.name} now has ${enemy.healthPoints} health points."
         )
 
     }
 
-
-    /**
-     * Kultiviert Energie, um die innere Kraft zu steigern und für zukünftige Aktionen zu speichern.
-     */
-    open fun cultivate() {
-        val energyGained = 10
-        energy += energyGained
-        println("$name kultiviert die daoistische Energie")
-    }
-
-
-    /**
-     * Ermittelt eine Aktion anhand ihres Namens aus der Liste der möglichen Aktionen.
-     * @param name Der Name der Aktion, die gesucht wird.
-     * @return Die gefundene Aktion oder null, falls keine Aktion mit diesem Namen existiert.
-     */
-
+    open fun heal(cultivator: Cultivator, enemy: Enemy) {}
 
 }
-
-

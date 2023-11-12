@@ -1,25 +1,23 @@
-/**
- *Ein Daoistischer Magier ist eine spezialisierte Form eines Kultivators(Held) mit zusätzlichen magischen
- *mit zusätzlichen magischen Fähigkeiten.
- *Er verfügt über die Fähigkeit Zauber zu wirken, magische Gegenstände zu schaffen, Geister zu beschwören und
- *Verbündete zu stärken.
- *
- *
- *@property name : Der einzigartige Name des daoistischen Magiers.
- *@property healthPoints : Die Lebenspunkte des daoistischen Magiers.
- *@property level : Das derzeitige Level des daoistischen Magiers.
- *@property actions : Eine Liste von Aktionen, der der daoistische Magier ausführen kann.
- *@property defenseStatus : Zeigt an, ob sich der daoistische Magier verteidigt oder nicht.
- *@property spellPower : Die Stärke der Zauberkraft des daoistischen Magiers, die den Schaden seiner Zauber bestimmt.
- *@constructor Erstellt einen neuen daoistischen Magier mit einem Namen, Gesundheitspunkten, Level, einer Liste von
- *Aktionen, einem Verteidigungsstatus und einer spezifischen Zauberkraft.
- */
+import kotlin.random.Random as Random1
 
+/**
+ * A Taoist Mage is a specialized form of a Cultivator (hero) with additional magical abilities.
+ * They have the ability to cast spells, create magical items, summon spirits, and strengthen allies.
+ *
+ * @property name: The unique name of the Taoist Mage.
+ * @property healthPoints: The health points of the Taoist Mage.
+ * @property level: The current level of the Taoist Mage.
+ * @property actions: A list of actions that the Taoist Mage can perform.
+ * @property defenseStatus: Indicates whether the Taoist Mage is defending or not.
+ * @property spellPower: The strength of the Taoist Mage's spell power, determining the damage of their spells.
+ * @constructor Creates a new Taoist Mage with a name, health points, level, a list of actions, a defense status,
+ * and a specific spell power.
+ */
 open class TaoistMage(
     name: String,
     healthPoints: Int,
-    level: Int, actions:
-    MutableList<Action>,
+    level: Int,
+    actions: MutableList<Action>,
     defenseStatus: Boolean,
     val spellPower: Int
 ) : Cultivator(
@@ -27,63 +25,57 @@ open class TaoistMage(
     defenseValue = 20
 ) {
 
-
-    override var defensePower = 10//Startwert der Verteidigungskraft des daoistischen Magiers.
+    override var defensePower = 10 // Initial value of the Taoist Mage's defense power.
 
     /**
-     *Wirkt einen Zauber, der dem Gegner Schaden hinzufügt und die Verteidigungskraft des daoistischen
-     * Magiers verringert.
+     * Casts a spell that inflicts damage on the opponent and reduces the defense power of the Taoist Mage.
      *
-     * @param spellName : Der Name des Zaubers der gewirkt wird
-     * @param opponent  : Der Gegner, auf dem der Zauber wirkt
+     * @param spellName: The name of the spell being cast.
+     * @param opponent: The opponent on which the spell is cast.
      */
-    fun castSpell(spellName: String, opponent: Enemy) {
+    override fun attack(enemy: Enemy){
+        var spellName = "Firestorm"
         val spellDamage = spellPower * 2
         defensePower -= 5
-        opponent.healthPoints -= spellDamage
-        println("$name wirkt den Zauber $spellName und verringert die eigene Verteidigung auf $defensePower ")
+        enemy.healthPoints -= spellDamage
+        println("$name casts the spell $spellName, reducing their own defense to $defensePower.")
     }
 
     /**
-     * Stellt ein magisches Item her, das Schaden verursacht, wenn es verwendet wird, und verringert dabei die
-     * Gesundheitspunkte des daoistischen Magiers.
+     * Uses an armor spell to temporarily increase the defense of allies.
      *
-     * @param itemName Der Name des hergestellten magischen Gegenstands.
+     * @param ally: The ally whose defense is increased.
      */
-    fun craftMagicItem(itemName: String) {
-        val itemDamage = 30
-        val healthCost = 10
-        healthPoints -= healthCost
+    override fun defend(ally: Cultivator) {
+        val defenseBoost = 5
+        ally.defensePower += defenseBoost
         println(
-            "$name stellt das magische Item $itemName her , das $itemDamage Schaden verursacht," +
-                    "und verliert $healthCost Lebenspunkte.Verbleibende Lebenspunkte:$healthPoints  "
+            "$name uses an armor spell to strengthen the defense of ${ally.name} by ${defenseBoost} points. " +
+                    "$ally.name now has a defense of ${ally.defensePower}."
+        )
+    }
+
+    override fun heal(cultivator: Cultivator) {
+        val healingAmount =  15
+        cultivator.healthPoints += healingAmount
+        println(
+            "$name heals $cultivator.name for $healingAmount health points." +
+                    "$cultivator.name now has ${cultivator.healthPoints} health points."
         )
     }
 
     /**
-     * Beschwört einen Geist, der den Schadenswert für den nächsten Angriff des daoistischen Magiers erhöht,
-     * jedoch auf Kosten von Gesundheitspunkten.
+     * Summons a spirit that increases the damage value for the next attack of the Taoist Mage,
+     * but at the cost of health points.
      */
-    fun invokeSpirit() {
+    override fun specialAction(enemy: Enemy) {
         val damageBoost = 20
         val healthCost = 15
         healthPoints -= healthCost
+        enemy.healthPoints -= damageBoost
         println(
-            "$name beschwört einen Geist und erhöht den Schadenswert für den nächsten" +
-                    "Angriff um $damageBoost, verliert aber $healthCost Lebenspunkt." +
-                    "Verbleibende Lebenspunkte:$healthPoints ."
+            "$name uses the spirit to increase the damage value of the next attack by $damageBoost and lose $healthCost health points. " +
+                    "Remaining health points: $healthPoints."
         )
-    }
-
-    /**
-     * Verwendet einen Rüstungszauber, um die Verteidigung seiner Verbündeten temporär zu erhöhen.
-     *
-     * @param ally Der Verbündete, dessen Verteidigung erhöht wird.
-     */
-    fun fortify(ally: Cultivator) {
-        val defenseBoost = 10
-        ally.defensePower += defenseBoost
-        println("$name verwendet einen Rüstungszauber auf ${ally.name} und erhöht dessen Verteidigung um $defenseBoost")
-
     }
 }

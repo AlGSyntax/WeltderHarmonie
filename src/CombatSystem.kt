@@ -13,18 +13,17 @@ var isItemUsed = false
             chooseBagOrAction(cultivator)
         }
 
-        println(activeEnemy.name + " hat jetzt " + activeEnemy.healthPoints + " Gesundheitspunkte.")
-//        change the enemy to Minion if needed
+        println("\n"+activeEnemy.name + " hat jetzt " + activeEnemy.healthPoints + " Gesundheitspunkte.")
         if (activeEnemy is DualisticDemon && activeEnemy.healthPoints <= 20) {
-            println(activeEnemy.name + activeEnemy.healthPoints + " Gesundheitspunkte.")
             (activeEnemy as? DualisticDemon)?.let {
                 val minion = it.summonMinion()
                 activeEnemy = minion
             }
         }
 
-        val enemyAction = activeEnemy.actions[Random.nextInt(0, activeEnemy.actions.size)]
-        executeEnemyAction(activeEnemy, enemyAction.name)
+        val randomEnemyAction = activeEnemy.actions[Random.nextInt(0, activeEnemy.actions.size)]
+//          Action("Verwirren", "Spezial"),
+        executeEnemyAction(activeEnemy, taoistSect, randomEnemyAction)
 
         reportRound()
 
@@ -34,9 +33,9 @@ var isItemUsed = false
 
     private fun chooseBagOrAction(cultivator: Cultivator) {
         if(isItemUsed){
-            println(" Choose an action")
-            val action = actionChoice(cultivator) //action choosen
-            executeAction(cultivator, action, activeEnemy)
+            println("Choose an action")
+            val action = chooseAction(cultivator) //action choosen
+            executeCultivatorAction(cultivator, action, activeEnemy)
         }
         else
         {
@@ -48,8 +47,8 @@ var isItemUsed = false
                 chooseItem(cultivator)
             }
             else if (userChoice == 2) {
-                val action = actionChoice(cultivator) //action choosen
-                executeAction(cultivator, action, activeEnemy)
+                val action = chooseAction(cultivator) //action choosen
+                executeCultivatorAction(cultivator, action, activeEnemy)
             }
             else {
                 println("Invalid choice, please try again.")
@@ -59,7 +58,7 @@ var isItemUsed = false
 
 
     }
-    private fun chooseItem(cultivator: Cultivator) {
+   fun chooseItem(cultivator: Cultivator) {
         isItemUsed = true
         println("${cultivator.name}, choose an item:")
         bag.items.forEachIndexed { index, item -> println("$index:${item.name} ${item.quantity}" )  }
@@ -75,57 +74,47 @@ var isItemUsed = false
             chooseItem(cultivator)
         }}
 
-    fun executeAction(actor: Cultivator, action: Action, target: Any) {
-        action.execute(actor, target)
+    fun executeCultivatorAction(cultivator: Cultivator, action: Action, enemy: Enemy) {
+        when (action.type) {
+            "Angriff" -> cultivator.attack(enemy)
+            "Verteidigung" -> cultivator.defend(cultivator)
+            "Heilung" -> cultivator.heal(cultivator)
+            "Spezial" -> cultivator.specialAction(enemy)
+            else -> println("Unbekannte Aktion.$action")
+        }
     }
 
+    fun executeEnemyAction(enemy: Enemy, cultivators: List<Cultivator>, randomAction: Action) {
+        println("***********ENEMY ACTION*************")
 
-    fun executeEnemyAction(enemy: Enemy, action: String) {
-        when (action) {
-            "Angriff" -> {
-                val target = taoistSect.random()
-                enemy.attack(target)
+        when (enemy) {
+            is DualisticDemon ->{
+                when (randomAction.name) {
+                    "Verwirren" -> enemy.specialAction(cultivators.random())
+                    "Chaos steigern" -> enemy.specialAction(cultivators.random())
+                    "Dualistischer Schlag" -> enemy.attack(cultivators)
+                    "Chaotische Energieexplosion" -> enemy.attack(cultivators)
+                    "DualMinion beschwöre" -> enemy.heal(enemy)
+                    else -> println("Unbekannte Aktion.$randomAction") }
+
             }
+            is DualMinion ->{
+                when (randomAction.name) {
+                    "Angriff und Bericht" -> enemy.attack(cultivators)
+                    "Special Action" -> enemy.specialAction(cultivators.random())
+                    "Verteidigung der Feinde schwächen" -> enemy.defend(enemy)
+                    "Feind verwirren" -> enemy.attack(cultivators)
+                    "Meister flach heilen" -> enemy.heal(enemy)
+                    else -> println("Unbekannte Aktion.$randomAction")
 
-            "SpezialAktion" -> {
-                enemy.specialAction(taoistSect)
-            }
-
-            "AoE-Zauber" -> {
-                enemy.castAoESpell(taoistSect)
-            }
-
-            "Fluch" -> {
-                val target = taoistSect.random()
-                enemy.curse(target)
-            }
-
-            else -> {
-                if (enemy is DualisticDemon) {
-                    val target = taoistSect.random()
-                    when (action) {
-                        "Verwirrung" -> enemy.confuse(target)
-                        "Chaos steigern" -> enemy.increaseChaos()
-                        "Dualistischer Schlag" -> enemy.dualisticStrike(target)
-                        "Chaotische Energieexplosion" -> enemy.chaoticEnergyBlast(target)
-                        "Balance wiederherstellen" -> enemy.restoreBalance()
-                        else -> println("Unbekannte Aktion.$action")
-                    }
-                } else if (enemy is DualMinion) {
-                    val target = taoistSect.random()
-                    when (action) {
-                        "weakenEnemiesDefense" -> enemy.weakenEnemiesDefense(target)
-                        "confuseEnemy" -> enemy.confuseEnemy(target)
-                        "attackAndReport" -> enemy.attackAndReport(target)
-                        else -> println("Unbekannte Aktion.$action")
-                    }
                 }
             }
+
         }
     }
 
 
-    fun actionChoice(cultivator: Cultivator): Action {
+    fun chooseAction(cultivator: Cultivator): Action {
         println("${cultivator.name}, es ist deine Runde ! Wähle eine Aktion:")
         cultivator.actions.forEachIndexed { index, action -> println("$index:${action.name}") }
         val userChoice = readln()
@@ -134,7 +123,7 @@ var isItemUsed = false
             cultivator.actions[chosenActionIndex]
         } else {
             println("Ungültige Auswahl, bitte versuche es erneut.")
-            actionChoice(cultivator)
+            chooseAction(cultivator)
         }
     }
 

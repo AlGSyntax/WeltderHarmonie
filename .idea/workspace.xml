@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0fceb7d9-d8bc-4ad6-94f9-7d11963f0aa8" name="Changes" comment="Änderungen vorgenommen.">
-      <change beforePath="$PROJECT_DIR$/src/Bag.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bag.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CombatSystem.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombatSystem.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cultivator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cultivator.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Item.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Item.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ItemShop.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DualMinion.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/DualMinion.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ShopItem.kt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

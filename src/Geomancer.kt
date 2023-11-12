@@ -1,16 +1,15 @@
 /**
- * Ein Geomancer ist ein spezialisierter Kultivator, der die Mächte der Erde und andere Elemente beherrscht.
- * Diese Klasse ermöglicht es dem Geomancer, defensive und offensive
- * Fähigkeiten im Kampf einzusetzen.
- * @property name : Der einzigartige Name des Geomancers.
- * @property healthPoints : Gesundheitspunkte des Geomancers.
- * @property level : Zeigt das aktuelle Level des Geomancers.
- * @property actions : Zeigt eine Liste von Aktionen, die der Geomancer ausführen kann.
- * @property defenseStatus : Zeigt an, ob sich der Geomancer verteidigt oder nicht.
- * @property earthPower : Die Stärke der Erdkraft beeinflusst die erdbezogenen Fähigkeiten
- * @property elementalPower : Die allgemeine Stärke der Elementarkräfte beeinflusst elementare Fähigkeiten
- *wie Feuersturm.
- * @constructor : Erstellt einen neuen Geomancer mit Basisattributen und spezialisierten Kräften.
+ * A Geomancer is a specialized cultivator who commands the powers of the earth and other elements.
+ * This class enables the Geomancer to employ both defensive and offensive abilities in combat.
+ * @property name: The unique name of the Geomancer.
+ * @property healthPoints: Health points of the Geomancer.
+ * @property level: Indicates the current level of the Geomancer.
+ * @property actions: Shows a list of actions that the Geomancer can perform.
+ * @property defenseStatus: Indicates whether the Geomancer is in a defensive stance or not.
+ * @property earthPower: The strength of the earth power influences earth-related abilities.
+ * @property elementalPower: The overall strength of elemental forces influences elemental abilities
+ * like Firestorm.
+ * @constructor: Creates a new Geomancer with base attributes and specialized powers.
  */
 open class Geomancer(
     name: String, healthPoints: Int, level: Int, actions: MutableList<Action>,
@@ -20,62 +19,52 @@ open class Geomancer(
     level, actions, defenseValue = 20
 ) {
 
-
     /**
-     * Erzeugt eine Erdmauer, die die Verteidigungskraft des Geomancers erhöht
+     * Creates an Earth Wall, increasing the Geomancer's defense power.
      */
-    fun createEarthWall() {
+    override fun defend(cultivator: Cultivator) {
         val defenseBoost = 10
-        defensePower += defenseBoost
+        cultivator.defensePower += defenseBoost
         println(
-            "$name erstellt eine Erdmauer und erhöht die Verteidigungskraft um" +
-                    "$defenseBoost."
+            "$name creates an Earth Wall, increasing defense power by" +
+                    " $defenseBoost."
         )
     }
 
     /**
-     * Wirkt einen Feuersturm, der allen Gegnern Schaden zufügt, basierend auf der "elementalPower"
-     * des Geomancers.
-     * @param enemies : List der Gegner, die vom Feuersturm betroffen sind.
+     * Casts a Firestorm that deals damage to all enemies, based on the Geomancer's "elementalPower."
+     * @param enemies: List of enemies affected by the Firestorm.
      */
-
-    fun castFirestorm(enemies: List<Enemy>) {
+    override fun attack(enemy: Enemy) {
         val spellDamage = elementalPower
-        enemies.forEach { enemy -> enemy.healthPoints -= spellDamage }
-        println("$name wirkt einen Feuersturm und verursacht $spellDamage Schadenspunkte an allen Gegnern. ")
+       enemy.healthPoints -= spellDamage
+        println("$name casts a Firestorm, dealing $spellDamage damage to all enemies.")
     }
 
     /**
-     * Führt einen Erdbebenangriff aus, der allen Gegnern Schaden zufügt, basierend auf der doppelten "earthPower"
-     * des Geomancers.
-     *
-     * @param enemies : Liste der Gegner, die vom Erdbeben betroffen sind.
+     * Executes an Earthquake attack that damages all enemies, based on double the "earthPower" of the Geomancer.
+     * @param enemies: List of enemies affected by the Earthquake.
      */
-    fun earthquakeAttack(enemies: List<Enemy>) {
+
+    override fun specialAction(enemy: Enemy) {
         val earthquakeDamage = earthPower * 2
-        enemies.forEach { enemy ->
-            enemy.healthPoints -= earthquakeDamage
-            println(
-                "$name führt einen Erdbeben-Angriff durch und verursachtet $earthquakeDamage Schadenspunkte" +
-                        "an $enemy.name" +
-                        "$enemy.name hat jetzt ${enemy.healthPoints} Gesundheitspunkte."
-            )
-        }
+        enemy.healthPoints -= earthquakeDamage
+        println(
+            "$name executes an Earthquake attack, dealing $earthquakeDamage damage to" +
+                    " ${enemy.name}. ${enemy.name} now has ${enemy.healthPoints} health points.")
     }
 
-
     /**
-     * Entzieht einem Gegner Energie und konvertiert diese in Gesundheit für den Geomancer.
-     *
-     * @param enemy : Der Gegner, von dem Energie gezogen wird.
+     * Drains energy from an enemy and converts it into health for the Geomancer.
+     * @param enemy: The enemy from which energy is drained.
      */
-    fun leechEnergy(enemy: Enemy) {
+    override fun heal(cultivator: Cultivator, enemy: Enemy) {
         val energyLeeched = earthPower
         enemy.healthPoints -= energyLeeched
-        this.healthPoints += energyLeeched
+        cultivator.healthPoints += energyLeeched
         println(
-            "$name entzieht ${enemy.name} Energie und fügt ihm $energyLeeched Schaden zu." +
-                    "Gleichzeitig heilt sich $name um $energyLeeched Gesundheitspunkte."
+            "$name drains energy from ${enemy.name}, dealing $energyLeeched damage to" +
+                    " ${enemy.name}. Simultaneously, $name heals for $energyLeeched health points."
         )
     }
 }

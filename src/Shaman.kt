@@ -1,85 +1,67 @@
 /**
- * Ein Schamane spezialisiert auf Heilung und Unterstützung seines Teams sowie auf die Schwächung der Gegner.
- * Erbt von der Basisklasse "Cultivator" und fügt eigene Fähigkeiten hinzu.
+ * A Shaman specializing in healing and supporting their team, as well as weakening enemies.
+ * Inherits from the base class "Cultivator" and adds its own abilities.
  *
- *
- *
- *
- *
- *
- * @property name : Der einzigartige Name des Schamanen.
- * @property healthPoints : Zeigt die Gesundheitspunkte des Schamanen an.
- * @property level : Zeigt das aktuelle Level des Schamanen an.
- * @property actions : Eine Liste von Aktionen, die der Schamane ausführen kann.
- * @property defenseStatus : Zeigt an, ob sich der Schamane verteidigt oder nicht.
- * @property healingPower : Die Heilkraft des Schamanen, Sie bestimmt die Menge der Heilung.
- * @constructor Erstellt einen neuen Schamanen mit einem Namen, Gesundheitspunkten, Level, Aktionen, Verteidigungs-
- * status und Heilkraft.
+ * @property name: The unique name of the Shaman.
+ * @property healthPoints: Indicates the health points of the Shaman.
+ * @property level: Indicates the current level of the Shaman.
+ * @property actions: A list of actions the Shaman can perform.
+ * @property defenseStatus: Indicates whether the Shaman is defending or not.
+ * @property healingPower: The healing power of the Shaman, determining the amount of healing.
+ * @constructor Creates a new Shaman with a name, health points, level, actions, defense status, and healing power.
  */
 class Shaman(
     name: String, healthPoints: Int, level: Int, actions: MutableList<Action>, defenseStatus: Boolean,
     var healingPower: Int
 ) : Cultivator(name, healthPoints, level, actions, defenseValue = 20) {
 
-
     /**
-     * Heilt einen verbündeten und stellt dessen Gesundheitspunkte wieder her.
+     * Heals an ally, restoring their health points.
      *
-     * @param ally : Der Verbündete der geheilt werden soll.
+     * @param ally: The ally to be healed.
      */
-    fun healAlly(ally: Cultivator) {
+    override fun heal(ally: Cultivator) {
         val healingAmount = healingPower
         ally.healthPoints += healingAmount
         println(
-            "$name heilt $ally.name um $healingAmount Gesundheitspunkte." +
-                    "$ally.name hat jetzt ${ally.healthPoints}Gesundheitspunkte."
+            "$name heals $ally.name for $healingAmount health points." +
+                    "$ally.name now has ${ally.healthPoints} health points."
         )
     }
 
-
     /**
-     * Verstärkt die Verteidigung eines Verbündeten temporär.
+     * Temporarily enhances the defense of an ally.
      *
-     * @param ally : Der Verbündete, dessen Verteidigung gestärkt werden soll.
+     * @param ally: The ally whose defense should be strengthened.
      */
-    fun buffAlly(ally: Cultivator) {
+    override fun defend(ally: Cultivator) {
         val defenseBoost = 5
         ally.defensePower += defenseBoost
         println(
-            "$name verstärkt die Verteidigung von $ally.name um $defenseBoost Punkte." +
-                    "$ally.name hat jetzt eine Verteidigung von ${ally.defensePower}."
+            "$name strengthens the defense of $ally.name by $defenseBoost points." +
+                    "$ally.name now has a defense of ${ally.defensePower}."
         )
     }
 
-
     /**
-     * Wirkt einen flächenwirkenden Zauber (AoE), der allen gegner Schaden zufügt.
+     * Casts an area-of-effect (AoE) spell, dealing damage to all enemies.
      *
-     * @param enemies : Lister der Gegner, die Schaden erhalten sollen.
+     * @param enemy: List of enemies to receive damage.
      */
-    fun castAoeSpell(enemies: List<Enemy>) {
+    override fun attack(enemy:Enemy) {
         val spellDamage = 10
-        enemies.forEach { enemy -> enemy.healthPoints -= spellDamage }
-        println("$name wirkt einen AoE-Zauber und verursacht $spellDamage Schadenspunkte an allen Gegnern ")
+        enemy.healthPoints -= spellDamage
+        println("$name casts an AoE spell and deals $spellDamage damage points to all enemies.")
     }
-
 
     /**
-     * Schüchtert alle Gegner ein, was in der nächsten Runde deren Angriffswahrscheinlichkeit reduziert.
+     * Intimidates all enemies, reducing their attack probability in the next round.
      *
-     * @param enemies : Liste der Gegner, die eingeschüchtert werden sollen.
+     * @param enemies: List of enemies to be intimidated.
      */
-    fun intimidateEnemies(enemies: List<Enemy>) {
-        val reducedAttackChance = 0.2
-        enemies.forEach { enemy ->
-            enemy.isIntimitated = true
-
-        }
-        println(
-            "$name setzt schamanistische Präsenz ein , um die Gegner einzuschüchtern." +
-                    "Die Angriffswahrscheinlichkeit der Gegner ist in der nächsten Runde um" +
-                    "$reducedAttackChance reduziert.  "
-        )
+    override fun specialAction(enemy: Enemy) {
+        val spellDamage = 10
+        enemy.healthPoints -= spellDamage
+        println("$name damages ${enemy.name} and deals $spellDamage damage points.")
     }
-
 }
