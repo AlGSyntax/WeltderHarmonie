@@ -16,7 +16,7 @@ class DualMinion(
     name: String,
     healthPoints: Int,
     action: MutableList<Action>,
-    private var master: DualisticDemon
+    var master: DualisticDemon
 ) : Enemy(
     name,
     healthPoints,

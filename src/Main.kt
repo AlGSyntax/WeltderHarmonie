@@ -84,9 +84,9 @@ private fun cultivators(): List<Cultivator> {
         Action("Göttliches Beben", "Angriff")
     )
 
-    val taoistMage = TaoistMage("Zhen", 100, 1, actionsForTaoistMage, false, taoistMageSpellPower)
-    val shaman = Shaman("Xiaoli", 100, 1, actionsForShaman, defenseStatus = false, shamanHealingPower)
-    val geomancer = Geomancer("Lian", 100, 1, actionsForGeomancer, defenseStatus = false, geomancerEarthPower, 20)
+    val taoistMage = TaoistMage("Zhen", 500, 1, actionsForTaoistMage, false, taoistMageSpellPower)
+    val shaman = Shaman("Xiaoli", 500, 1, actionsForShaman, defenseStatus = false, shamanHealingPower)
+    val geomancer = Geomancer("Lian", 500, 1, actionsForGeomancer, defenseStatus = false, geomancerEarthPower, 20)
 
     return listOf(taoistMage, shaman, geomancer)
 }

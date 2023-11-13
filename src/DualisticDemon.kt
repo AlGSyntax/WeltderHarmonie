@@ -18,6 +18,7 @@ open class DualisticDemon(name: String,
     actions, isIntimitated = false
 ) {
 
+
     var isConfused: Boolean = false
     var attackBoost: Int = 0
     var maxHealthPoints: Int = healthPoints
@@ -114,9 +115,9 @@ open class DualisticDemon(name: String,
      * Summons a DualMinion to provide support in battle.
      * @return: A new DualMinion is created and added to the battle.
      */
-    open fun summonMinion(): DualMinion {
+
+     fun summonMinion(): DualMinion {
         val minion = DualMinion("DualMinion", 100, mutableListOf(), this)
-        println("$name summons a DualMinion for support in battle.")
+        println("$name beschwört einen DualMinion zur Unterstützung im Kampf.")
         return minion
-    }
-}
+    }}

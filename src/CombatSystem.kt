@@ -2,6 +2,7 @@ import kotlin.random.Random
 
 class CombatSystem(val taoistSect: List<Cultivator>, var activeEnemy: Enemy, val bag: Bag) {
 var isItemUsed = false
+    var minionSummoned = false
 
     fun start() {
         println("Der Kampf beginnt")
@@ -19,11 +20,25 @@ var isItemUsed = false
                 val minion = it.summonMinion()
                 activeEnemy = minion
             }
+            if (activeEnemy is DualisticDemon && activeEnemy.healthPoints <= 20 && !minionSummoned) {
+                minionSummoned = true
+                val minion = (activeEnemy as DualisticDemon).summonMinion()
+                activeEnemy = minion
+            }
+        }
+        if (activeEnemy is DualMinion && activeEnemy.healthPoints <= 0) {
+            activeEnemy = (activeEnemy as DualMinion).master
+        }
+        if (activeEnemy.actions.isNotEmpty()) {
+            val randomEnemyAction = activeEnemy.actions[Random.nextInt(activeEnemy.actions.size)]
+            executeEnemyAction(activeEnemy, taoistSect, randomEnemyAction)
+        } else {
+            "// Behandle den Fall, dass keine Aktionen verfügbar sind"
         }
 
-        val randomEnemyAction = activeEnemy.actions[Random.nextInt(0, activeEnemy.actions.size)]
+   //     val randomEnemyAction = activeEnemy.actions[Random.nextInt(0, activeEnemy.actions.size)]
 //          Action("Verwirren", "Spezial"),
-        executeEnemyAction(activeEnemy, taoistSect, randomEnemyAction)
+  //      executeEnemyAction(activeEnemy, taoistSect, randomEnemyAction)
 
         reportRound()
 
@@ -94,7 +109,7 @@ var isItemUsed = false
                     "Chaos steigern" -> enemy.specialAction(cultivators.random())
                     "Dualistischer Schlag" -> enemy.attack(cultivators)
                     "Chaotische Energieexplosion" -> enemy.attack(cultivators)
-                    "DualMinion beschwöre" -> enemy.heal(enemy)
+                    "DualMinion beschwöre" -> enemy.summonMinion()
                     else -> println("Unbekannte Aktion.$randomAction") }
 
             }
