@@ -42,7 +42,9 @@ Das Klassendiagramm für das Projekt kann hier eingesehen werden:
 
 [![Class-Diagram-Template-Community.png](https://i.postimg.cc/tgyVGPgn/Class-Diagram-Template-Community.png)](https://postimg.cc/68jQd8nB)
 </details>
+
 ---
+
 <details>
   <summary>Cultivator-Klasse (Abstrakte Heldenvorlage)</summary>
 
@@ -185,6 +187,7 @@ Kräfte der Natur im Kampf gegen die Mächte der Unordnung einzusetzen.
 
 </details>
 
+---
 
 <details>
   <summary>Enemy-Klasse</summary>
@@ -254,6 +257,7 @@ Die `DualMinion`-Klasse ist ein wichtiger Bestandteil der Gegnerhierarchie im Sp
 
 </details>
 
+---
 
 <details>
   <summary>Item-Klasse</summary>
@@ -312,6 +316,7 @@ strategisch einzusetzen, um ihre Chancen auf Erfolg im Spiel zu verbessern.
 
 </details>
 
+---
 
 <details>
   <summary>Action-Klasse</summary>
@@ -412,6 +417,7 @@ Die `main.kt` bietet die strukturelle Grundlage für das Spiel, indem sie den Ra
 
 </details>
 
+---
 
 <details>
   <summary>1. Was sind abstrakte Klassen?</summary>
@@ -438,4 +444,3 @@ Companion-Objekte in Kotlin sind ein Feature, das es erlaubt, Mitglieder (Method
 
 </details>
 
-</details>
