@@ -343,6 +343,7 @@ erweiterbaren Kampfsystems, in dem neue Aktionstypen leicht hinzugefügt und int
 
 </details>
 
+---
 
 <details>
   <summary>CombatSystem-Klasse</summary>
