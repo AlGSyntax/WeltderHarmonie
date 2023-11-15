@@ -2,39 +2,31 @@ import kotlin.math.max
 import kotlin.random.Random
 
 /**
- * A Cultivator is a class specialized in cultivating energy and executing combat actions.
- * They can attack, defend, heal, and perform special actions.
+ * Abstrakte Basisklasse für alle Helden (Cultivators) im Spiel.
+ * Sie definiert allgemeine Attribute und Methoden, die von spezifischen Heldenklassen erweitert werden.
  *
- * @property name: The unique name of the Cultivator.
- * @property healthPoints: The current number of health points of the Cultivator, representing life force.
- * @property level: The level of the Cultivator, indicating experience and power.
- * @property actions: A list of actions that the Cultivator can perform.
- * @property defenseStatus: A boolean value indicating whether the Cultivator is in a defensive stance.
- * @property energy: The current amount of stored energy that can be used for special actions.
- * @property damageValue: The base damage value of the Cultivator.
- * @property defensePower: The base defense power of the Cultivator.
- * @property isConfused: A boolean value indicating whether the Cultivator is confused.
- * @property defenseValue: The base defense value subtracting damage from attacks.
- * @property maxHealthPoints: The maximum health points of the Cultivator.
- * @constructor: Creates a new Cultivator with basic attributes and abilities.
+ * @property name Der Name des Helden.
+ * @property healthPoints Die aktuellen Gesundheitspunkte des Helden.
+ * @property actions Eine Liste von Aktionen, die der Held ausführen kann.
+ * @property defenseValue Der Basisverteidigungswert des Helden.
  */
 abstract class Cultivator(
     val name: String,
     open var healthPoints: Int,
-    var level: Int,
     val actions: MutableList<Action>,
-    var defenseStatus: Boolean = true,
-    var energy: Int = 0,
-    var damageValue: Int = 0,
-    open var defensePower: Int = 10,
-    var isConfused: Boolean = false,
-    var defenseValue: Int,
-    val maxHealthPoints: Int = 100
+    var defenseValue: Int
 ) {
+    private var defenseStatus: Boolean = true// Zeigt an, ob der Held sich in der Verteidigungsstellung befindet.
+    var energy: Int = 0// Energiepunkte des Helden, die für spezielle Aktionen verwendet werden können.
+    var damageValue: Int = 0// Basis-Schadenswert des Helden.
+    var defensePower: Int = 5// Die aktuelle Verteidigungskraft des Helden, die den eingehenden Schaden reduziert.
+
 
     /**
-     * Attacks an opponent and inflicts damage.
-     * @param opponent: The opponent being attacked.
+     * Führt einen Angriff auf einen Gegner aus.
+     * Der verursachte Schaden wird zufällig im angegebenen Bereich berechnet.
+     *
+     * @param opponent Der Gegner, der angegriffen wird.
      */
     open fun attack(opponent: Enemy) {
         val minDamage = 15
@@ -42,47 +34,57 @@ abstract class Cultivator(
         val damage = Random.nextInt(minDamage, maxDamage + 1)
         opponent.healthPoints -= damage
         opponent.healthPoints = max(opponent.healthPoints, 0)
-        println(
-            "$name attacks ${opponent.name} and deals $damage damage. ${opponent.name} now has ${opponent.healthPoints}" +
-                    " health points."
-        )
+        println("$name greift ${opponent.name} an und verursacht $damage Schaden. ")
+        println("${opponent.name} hat nun ${opponent.healthPoints} Lebenspunkte.")
     }
 
+
     /**
-     * Switches to a defensive stance to reduce damage.
+     * Setzt den Helden in die Verteidigungsstellung, was zukünftige Angriffe möglicherweise reduziert.
+     *
+     * @param cultivator Der Held, der sich verteidigt.
      */
     open fun defend(cultivator: Cultivator) {
         defenseStatus = true
-        println("$name defends itself.")
+        println("$name verteidigt sich.")
     }
 
     /**
-     * Heals the Cultivator by a fixed number of health points.
+     * Heilt einen anderen Helden oder sich selbst.
+     *
+     * @param cultivator Der Held, der geheilt wird.
      */
     open fun heal(cultivator: Cultivator) {
         val healingAmount = 20
         cultivator.healthPoints += healingAmount
-        println(
-            "$name heals $cultivator.name for $healingAmount health points." +
-                    "$cultivator.name now has ${cultivator.healthPoints} health points."
-        )
+        println("$name heilt $cultivator.name um $healingAmount Lebenspunkte.")
+        println("${cultivator.name} hat nun ${cultivator.healthPoints} Lebenspunkte.")
     }
 
-
     /**
-     * Performs a special action, dealing damage to all enemies in the list.
-     * @param enemy: The enemy affected by the action.
+     * Führt eine spezielle Aktion aus, die in der Regel mächtiger als ein normaler Angriff ist.
+     *
+     * @param enemy Der Gegner, gegen den die Spezialaktion durchgeführt wird.
      */
     open fun specialAction(enemy: Enemy) {
         val specialDamage = 20
         enemy.healthPoints -= specialDamage
-        println(
-            "$name performs a special action, dealing $specialDamage damage. " +
-                    "${enemy.name} now has ${enemy.healthPoints} health points."
-        )
-
+        println("$name führt eine Spezialaktion aus und verursacht $specialDamage Schaden.")
+        println("${enemy.name} hat nun ${enemy.healthPoints} Lebenspunkte.")
     }
 
-    open fun heal(cultivator: Cultivator, enemy: Enemy) {}
 
+    /**
+     * Eine Vorlage für Heilmethoden, die sowohl den Cultivator als auch den Gegner berücksichtigen.
+     * Diese Methode ist vorgesehen, um in Unterklassen überschrieben zu werden, und bietet die Möglichkeit,
+     * dass ein Held einen anderen heilt oder einem Gegner Schaden zufügt und sich gleichzeitig selbst heilt.
+     *
+     * @param cultivator Der Held, der potenziell geheilt wird.
+     * @param enemy Der Gegner, der potenziell Schaden erleiden könnte.
+     */
+    open fun heal(cultivator: Cultivator, enemy: Enemy) {}
+    // Die Basisimplementierung ist leer. Spezifische Heldenklassen können diese Methode
+    // überschreiben, um spezifische Heil- oder Schadenszauber zu realisieren, die
+    // sowohl auf einen Verbündeten als auch auf einen Gegner Einfluss nehmen.
+    // Zum Beispiel könnte eine solche Aktion Lebensenergie vom Gegner auf den Helden übertragen.
 }

@@ -1,67 +1,73 @@
 /**
- * A Shaman specializing in healing and supporting their team, as well as weakening enemies.
- * Inherits from the base class "Cultivator" and adds its own abilities.
+ * Spezifischer Heldentyp: Schamane.
+ * Erbt von der Basisklasse Cultivator und implementiert spezielle Aktionen wie Heilung und Unterstützungszauber.
  *
- * @property name: The unique name of the Shaman.
- * @property healthPoints: Indicates the health points of the Shaman.
- * @property level: Indicates the current level of the Shaman.
- * @property actions: A list of actions the Shaman can perform.
- * @property defenseStatus: Indicates whether the Shaman is defending or not.
- * @property healingPower: The healing power of the Shaman, determining the amount of healing.
- * @constructor Creates a new Shaman with a name, health points, level, actions, defense status, and healing power.
+ * @param name Name des Schamanen.
+ * @param healthPoints Gesundheitspunkte des Schamanen.
+ * @param actions Liste der Aktionen, die der Schamane ausführen kann.
+ * @param healingPower Stärke der Heilfähigkeiten des Schamanen, beeinflusst die Heilungsmenge.
  */
+
+
 class Shaman(
-    name: String, healthPoints: Int, level: Int, actions: MutableList<Action>, defenseStatus: Boolean,
-    var healingPower: Int
-) : Cultivator(name, healthPoints, level, actions, defenseValue = 20) {
+    name: String,
+    healthPoints: Int,
+    actions: MutableList<Action>,
+    private var healingPower: Int
+) : Cultivator(name, healthPoints, actions, 20) {
+
 
     /**
-     * Heals an ally, restoring their health points.
+     * Heilt einen anderen Helden um einen Betrag, der der Heilkraft des Schamanen entspricht.
+     * Diese Methode ist nützlich, um das Überleben des Teams im Kampf zu sichern.
      *
-     * @param ally: The ally to be healed.
+     * @param cultivator Der Held, der geheilt wird.
      */
-    override fun heal(ally: Cultivator) {
-        val healingAmount = healingPower
-        ally.healthPoints += healingAmount
-        println(
-            "$name heals $ally.name for $healingAmount health points." +
-                    "$ally.name now has ${ally.healthPoints} health points."
-        )
+    override fun heal(cultivator: Cultivator) {
+        val healingAmount = healingPower// Menge der Heilung.
+        cultivator.healthPoints += healingAmount// Erhöhung der Gesundheitspunkte des Helden.
+        println("$name heilt ${cultivator.name} um $healingAmount Lebenspunkte.")
+        println("${cultivator.name} hat nun ${cultivator.healthPoints} Lebenspunkte.")
     }
 
-    /**
-     * Temporarily enhances the defense of an ally.
-     *
-     * @param ally: The ally whose defense should be strengthened.
-     */
-    override fun defend(ally: Cultivator) {
-        val defenseBoost = 5
-        ally.defensePower += defenseBoost
-        println(
-            "$name strengthens the defense of $ally.name by $defenseBoost points." +
-                    "$ally.name now has a defense of ${ally.defensePower}."
-        )
-    }
 
     /**
-     * Casts an area-of-effect (AoE) spell, dealing damage to all enemies.
+     * Erhöht die Verteidigung eines anderen Helden.
+     * Diese Methode stärkt die Verteidigung des angegebenen Helden, um ihn widerstandsfähiger gegen Angriffe zu machen.
      *
-     * @param enemy: List of enemies to receive damage.
+     * @param cultivator Der Held, dessen Verteidigung verstärkt wird.
      */
-    override fun attack(enemy:Enemy) {
-        val spellDamage = 10
-        enemy.healthPoints -= spellDamage
-        println("$name casts an AoE spell and deals $spellDamage damage points to all enemies.")
+
+    override fun defend(cultivator: Cultivator) {
+        val defenseBoost = 5// Menge, um die die Verteidigung erhöht wird.
+        cultivator.defensePower += defenseBoost// Erhöhung der Verteidigung des Helden.
+        println("$name stärkt die Verteidigung von ${cultivator.name} um $defenseBoost Punkte.")
+        println("${cultivator.name} hat nun eine Verteidigung von ${cultivator.defensePower}.")
     }
 
+
     /**
-     * Intimidates all enemies, reducing their attack probability in the next round.
+     * Führt einen Flächenzauber aus, der allen Feinden Schaden zufügt.
+     * Dieser Angriff ist nützlich, um mehrere Gegner gleichzeitig zu treffen.
      *
-     * @param enemies: List of enemies to be intimidated.
+     * @param opponent Der Gegner, der angegriffen wird.
+     */
+    override fun attack(opponent: Enemy) {
+        val spellDamage = 10// Schaden des Flächenzaubers.
+        opponent.healthPoints -= spellDamage// Anwendung des Schadens auf den Gegner.
+        println("$name benutzt einen Flächenzauber und fügt allen Feinden $spellDamage Schadenspunkte zu.")
+    }
+
+
+    /**
+     * Führt eine mächtige spezielle Aktion aus, die einem einzelnen Gegner großen Schaden zufügt.
+     * Diese Methode kann in kritischen Kampfsituationen verwendet werden, um einen Gegner schnell auszuschalten.
+     *
+     * @param enemy Der Gegner, gegen den die Aktion ausgeführt wird.
      */
     override fun specialAction(enemy: Enemy) {
-        val spellDamage = 10
-        enemy.healthPoints -= spellDamage
-        println("$name damages ${enemy.name} and deals $spellDamage damage points.")
+        val spellDamage = 40// Schaden der speziellen Aktion.
+        enemy.healthPoints -= spellDamage// Anwendung des Schadens auf den Gegner.
+        println("$name fügt ${enemy.name} Schaden mit der göttlichen Hand zu und verursacht $spellDamage Schadenspunkte.")
     }
 }

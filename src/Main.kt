@@ -1,65 +1,60 @@
+/**
+ * Hauptfunktion, die das Spiel startet und den Kampfzyklus steuert.
+ */
 fun main() {
+    // Initialisiert die Gruppe der Kultivatoren und das Inventar.
     val taoistSect = cultivators()
-    val enemies = enemies()
     val bag = bag()
 
+    // Erstellt das Kampfsystem mit den Kultivatoren und dem Inventar.
+    val combatSystem = CombatSystem(taoistSect, bag)
 
-    // Spielablauf
+    // Spielablauf: Starte die Runden des Kampfes.
     var round = 1
-    // Zustandsvariable für das Spielende
-    var gameEnded = false
+    var battleRunning = true
 
 
-    while (!gameEnded && taoistSect.any { it.healthPoints > 0 } && enemies.any { it.healthPoints > 0 }) {
-        println("Runde $round beginnt...")
-        val combatSystem: CombatSystem = CombatSystem(taoistSect, enemies.first(), bag)
-        combatSystem.start()
-        combatSystem.executeRound()
+    // Führt Runden aus, bis der Kampf vorbei ist.
+    while (battleRunning) {
+
+        println("********* Runde $round beginnt ***********")
+
+        println("Der Kampf beginnt")
+        battleRunning = combatSystem.executeRound()
         round++
-
-        gameEnded = taoistSect.all { it.healthPoints <= 0 } || enemies.all { it.healthPoints <= 0 }
     }
-
+    // Überprüft das Ergebnis des Kampfes und gib das entsprechende Ergebnis aus.
     if (taoistSect.all { it.healthPoints <= 0 }) {
         println("Alle Helden wurden besiegt. Die Dämonen haben gewonnen!")
-    } else if (enemies.all { it.healthPoints <= 0 }) {
+    } else if (enemiesAreDead()) {
         println("Alle Feinde wurden besiegt. Die Taoisten haben gewonnen!")
     }
 
 }
 
+/**
+ * Erstellt und gibt ein Taschenobjekt mit initialen Gegenständen zurück.
+ * @return Das initialisierte Taschenobjekt.
+ */
 private fun bag(): Bag {
     val bagForCultivator = Bag()
-    bagForCultivator.addItem(Item("Yin Yang Ring", "It will give you 3x health points"), 2)
-    bagForCultivator.addItem(Item("Qi-Harmonisator", "It will give you 3x health points"), 3)
-    bagForCultivator.addItem(Item("Drachenperle", "It will give you 3x health points"), 1)
+    // Fügt verschiedene Gegenstände zur Tasche hinzu.
+    bagForCultivator.addItem(Item("Yin Yang Ring"), 2)
+    bagForCultivator.addItem(Item("Qi-Harmonisation"), 3)
+    bagForCultivator.addItem(Item("Drachenperle"), 1)
+    bagForCultivator.addItem(Item("Himmelsstab"), 1)
+    bagForCultivator.addItem(Item("Jadeamulett"), 1)
+    bagForCultivator.addItem(Item("Sonnenstein"), 1)
+    bagForCultivator.addItem(Item("Donnersegen"), 3)
 
     return bagForCultivator
 }
 
 
-private fun enemies(): List<Enemy> {
-    val actionsForDualisticDemon = mutableListOf(
-//        Action("Verwirren", "Spezial"),
-//        Action("Chaos steigern", "Spezial"),
-//        Action("Dualistischer Schlag", "AngriffHeilung"),
-        Action("Chaotische Energieexplosion", "Angriff"),
-//        Action("DualMinion beschwören", "Spezial")
-    )
-    val actionsForDualMinion = mutableListOf(
-        Action("Angriff und Bericht", "Angriff"),
-        Action("Meisterangriff verstärken", "Unterstützung"),
-        Action("Verteidigung der Feinde schwächen", "Debuff"),
-        Action("Feind verwirren", "Debuff"),
-        Action("Meister flach heilen", "Heilung")
-    )
-
-    val dualisticDemon = DualisticDemon("YinYangXian", 200, actionsForDualisticDemon, 0)
-    val dualMinion = DualMinion("Ying", 50, actionsForDualMinion, dualisticDemon)
-
-    return listOf(dualisticDemon, dualMinion)
-}
-
+/**
+ * Erstellt und gibt eine Liste von Kultivatoren zurück.
+ * @return Die Liste der initialisierten Kultivatoren.
+ */
 private fun cultivators(): List<Cultivator> {
     val taoistMageSpellPower = 20
     val shamanHealingPower = 30
@@ -67,27 +62,49 @@ private fun cultivators(): List<Cultivator> {
 
 
     val actionsForTaoistMage = mutableListOf(
-        Action("Zauberspruch werfen", "Angriff"),
+        Action("Zauberspruch benutzen", "Angriff"),
         Action("Magisches Item herstellen", "Heilung"),
-        Action("Geist beschwören", "Verteidigung")
-    )
+        Action("Göttlicher Mantel", "Verteidigung"),
+        Action("Geisterbeschwörung", "Spezial"),
+
+        )
 
     val actionsForShaman = mutableListOf(
         Action("Heilgesang", "Heilung"),
         Action("Mantel des Drachen", "Verteidigung"),
-        Action("Talisman der Ordnung", "Angriff")
+        Action("Talisman der Ordnung", "Angriff"),
+        Action("Göttliche Hand", "Spezial")
     )
 
     val actionsForGeomancer = mutableListOf(
         Action("Mauer des Himmels", "Verteidigung"),
         Action("Feuersturm", "Angriff"),
-        Action("Göttliches Beben", "Angriff")
+        Action("Göttliches Beben", "Spezial"),
+        Action("Ying und Yang", "Heilung")
     )
 
-    val taoistMage = TaoistMage("Zhen", 500, 1, actionsForTaoistMage, false, taoistMageSpellPower)
-    val shaman = Shaman("Xiaoli", 500, 1, actionsForShaman, defenseStatus = false, shamanHealingPower)
-    val geomancer = Geomancer("Lian", 500, 1, actionsForGeomancer, defenseStatus = false, geomancerEarthPower, 20)
+    val taoistMage =
+        TaoistMage("Zhen", 200, actionsForTaoistMage, taoistMageSpellPower)
+    val shaman = Shaman("Xiaoli", 200, actionsForShaman, shamanHealingPower)
+    val geomancer = Geomancer(
+        "Lian",
+        200,
+        actionsForGeomancer,
+        geomancerEarthPower,
+        20
+    )
 
     return listOf(taoistMage, shaman, geomancer)
+
+
+}
+
+
+/**
+ * Überprüft, ob alle Gegner besiegt wurden.
+ * @return Wahr (true), wenn alle Gegner besiegt wurden, andernfalls falsch (false).
+ */
+fun enemiesAreDead(): Boolean {
+    return DualMinion.getInstance().healthPoints == 0 && DualisticDemon.getInstance().healthPoints == 0
 }
 

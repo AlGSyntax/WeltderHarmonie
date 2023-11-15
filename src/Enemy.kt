@@ -2,100 +2,73 @@ import kotlin.math.max
 import kotlin.random.Random
 
 /**
- * Enemy represents a generic class of enemies in a combat game. It has basic attack abilities
- * and can perform special actions based on a group of targets or a single target.
+ * Die Basisklasse für alle Gegner im Spiel.
+ * Sie definiert allgemeine Eigenschaften und Verhaltensweisen, die alle Gegnertypen teilen.
  *
- * @property name The name of the enemy, unique in the game world.
- * @property healthPoints The enemy's health points representing its vitality in combat.
- * @property actions A list of actions the enemy can perform.
- * @property defensePower The defense power of the enemy, which can reduce incoming damage.
+ * @property name Der Name des Gegners.
+ * @property healthPoints Die Gesundheitspunkte des Gegners, die dessen Lebenskraft repräsentieren.
+ * @property actions Eine Liste von Aktionen, die der Gegner ausführen kann.
  */
 open class Enemy(
-    val name: String,
-    var healthPoints: Int,
-    val actions: MutableList<Action>,
-    var isIntimitated: Boolean
+    var name: String,
+    healthPoints: Int,
+    val actions: MutableList<Action>
 ) {
-    var defensePower: Int = 10
+    var healthPoints = healthPoints
+        // Gesundheitspunkte des Gegners. Kann nicht unter 0 fallen.
+        set(value) {
+            field = if (value < 0) 0
+            else value
+        }
+    var defensePower: Int = 10// Die Verteidigungskraft des Gegners, die den eingehenden Schaden reduzieren kann.
+
 
     /**
-     * Executes an attack on a target, taking into account the target's defense power.
-     * @param target The Cultivator target being attacked.
+     * Greift eine Liste von Kultivatoren an.
+     *
+     * @param cultivators Die Liste der Kultivatoren, die angegriffen werden sollen.
+     * @param name Der Name des Angriffs.
+     * @param minDamage Der minimale Schaden, der durch den Angriff verursacht werden kann.
+     * @param maxDamage Der maximale Schaden, der durch den Angriff verursacht werden kann.
      */
-    open fun attack(cultivators: List<Cultivator>) {
-        val minDamage = 35
-        val maxDamage = 45
+    open fun attack(cultivators: List<Cultivator>, name: String, minDamage: Int, maxDamage: Int) {
         for (cultivator in cultivators) {
             val damage = Random.nextInt(minDamage, maxDamage + 1)
-            val actualDamage = if (damage > cultivator.defensePower) damage - cultivator.defensePower else 0
+            val actualDamage =
+                if (damage > cultivator.defensePower) damage - cultivator.defensePower else 0
             cultivator.healthPoints -= actualDamage
             cultivator.healthPoints = max(cultivator.healthPoints, 0)
-            println("$name attacks ${cultivator.name} and deals $actualDamage damage.")
+            println("${this.name} übt $name aus an ${cultivator.name} und verursacht $actualDamage Schaden.")
         }
     }
 
+
     /**
-     * Executes a special action defined by the specific enemy class.
-     * @param targets A list of Cultivator targets that might be affected by the action.
+     * Führt eine Spezialaktion aus.
+     *
+     * @param targets Das Ziel der Spezialaktion.
      */
     open fun specialAction(targets: Cultivator) {
-        println("$name performs a special action.")
+        println("$name führt eine Spezialaktion aus.")
     }
 
-
     /**
-     * Heals the enemy by a specified amount.
-     * Healing is capped at the enemy's maximum health points.
-     *
-     * @param amount The amount of health points the enemy should be healed by.
+     * Heilt sich selbst um einen festgelegten Betrag.
      */
-    open fun heal(enemy: Enemy) {
+    open fun heal() {
         val healAmount = 10
-        enemy.healthPoints += healAmount
-        println("$name heals itself by $healAmount health points.")
+        healthPoints += healAmount
+        println("$name heilt sich selbst um $healAmount Lebenspunkte.")
     }
 
     /**
-     * Increases the enemy's defense power to reduce damage from attacks.
-     * This method can be used to enhance the enemy's survival in combat.
+     * Erhöht die Verteidigungskraft des Gegners.
      *
-     * @param increase The amount by which defense power should be increased.
+     * @param enemy Der Gegner, dessen Verteidigung erhöht werden soll.
      */
     open fun defend(enemy: Enemy) {
         enemy.defensePower += 20
-        println("$name increases its defense power by 20.")
+        println("$name erhöht seine Verteidigung um 20.")
     }
-
-    /**
-     * Casts an Area of Effect (AoE) spell, dealing damage to all targets.
-     * @param targets A list of Cultivator targets affected by the spell.
-     */
-//    open fun castAoESpell(targets: List<Cultivator>) {
-//        val spellDamage = 10
-//        targets.forEach { target -> target.healthPoints -= spellDamage }
-//        println(
-//            "$name casts an AoE spell and deals $spellDamage damage points to all targets."
-//        )
-//    }
-//
-//    /**
-//     * Places a curse on a target, reducing its health points by a percentage,
-//     * unless the health points are already below a critical threshold.
-//     * @param target The Cultivator target being cursed.
-//     */
-//    open fun curse(target: Cultivator) {
-//        if (target.healthPoints > target.healthPoints * 0.2) {
-//            target.healthPoints = (target.healthPoints * 0.9).toInt()
-//            println(
-//                "${target.name} is cursed and loses 10% of its health points. " +
-//                        "${target.name} now has ${target.healthPoints} health points."
-//            )
-//        } else {
-//            println(
-//                "The curse has no effect on ${target.name} as its health points are already below " +
-//                        "20%."
-//            )
-//        }
-//    }
 
 }

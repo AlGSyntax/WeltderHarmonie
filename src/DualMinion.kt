@@ -1,76 +1,51 @@
-import kotlin.random.Random
-
 /**
- * Der DualMinion ist ein Untergeber des DualisticDemon, ausgerüstet mit Fähigkeiten, die sowohl im Kampf dienen,
- * als auch seinen Meister unterstützen.
- * Die Klasse ermöglicht es dem DualMinion, Angriffe durchzuführen, die Verteidigung von Feinden zu schwächen,
- * Verwirrung zu stiften, und den Meister zu heilen.
- *
- * @property name : Der einzigartige Name des DualMinion.
- * @property healthPoints : Die Gesundheitspunkte des DualMinion.
-
- * @property master : Eine Referenz zu dem DualisticDemon, zu dem der DualMinion gehört.
- * @constructor : Erstellt einen DualMinion, mit gegebenen Eigenschaften und Fähigkeiten.
+ * Der DualMinion ist eine spezielle Art von Gegner, der als Unterstützung für den Hauptgegner, den DualisticDemon, dient.
+ * Diese Klasse ist privat konstruiert und als Singleton implementiert, um sicherzustellen, dass nur eine Instanz existiert.
  */
-class DualMinion(
-    name: String,
-    healthPoints: Int,
-    action: MutableList<Action>,
-    var master: DualisticDemon
+class DualMinion private constructor(
+
 ) : Enemy(
-    name,
-    healthPoints,
-    action,
-    isIntimitated = false
-    ) {
+    "Ying",// Name des DualMinion, der Unterstützer des Hauptgegners.
+    70,// Gesundheitspunkte des DualMinion, was relativ niedrig ist im Vergleich zum Hauptgegner.
+    mutableListOf(
+        // Die Liste der Aktionen, die der DualMinion ausführen kann.
+        Action("Angriff und Bericht", "Angriff"),
+        Action("Meisterangriff verstärken", "Heilung"),
+        Action("Verteidigung der Feinde schwächen", "Spezial"),
+        Action("Feind verwirren", "Angriff"),
+        Action("Meister hoch heilen", "Heilung")
+    )
+) {
+
     /**
-     * Greift ein Ziel an, und berichtet dem Meister über das Ergebnis des Angriffs.
-     * @param target : Repräsentiert den Kultivator, der Ziel des Angriffs ist
+     * Heilt den DualisticDemon, den Hauptgegner im Spiel.
+     * Diese Methode ist einzigartig für den DualMinion und zeigt seine Rolle als Unterstützer.
      */
-    fun attackAndReport(target: Cultivator) {
-        val damage = Random.nextInt(5, 15)
-        target.healthPoints -= damage
-        println("$name greift ${target.name} an und verursacht $damage Schadenspunkte.")
-        master.receiveReport()
-        println("$name berichtet dem Meister $master.name über den Angriff.")
+    override fun heal() {
+        println("Der Minion heilt seinen Master um 10 Lebenspunkte.")
+        DualisticDemon.getInstance().healthPoints += 10
     }
 
+    companion object {
+        // Companion-Objekt, das zur Singleton-Implementierung der DualMinion-Klasse verwendet wird.
+        private lateinit var instance: DualMinion
 
-    /**
-     * Verstärkt den Angriff des Meisters durch Übertragung von Bonusangriffspunkten.
+        /**
+         * Stellt sicher, dass nur eine Instanz des DualMinion erstellt wird.
+         * @return Die einzige Instanz des DualMinion.
+         */
+        fun getInstance(): DualMinion {
+            if (!::instance.isInitialized) {
+                initialize()// Initialisiert die Instanz, wenn sie noch nicht initialisiert wurde.
+            }
+            return instance// Gibt die existierende Instanz zurück.
+        }
 
-     */
-//    fun enhanceMasterAttack(target: Enemy) {
-//        println("$name verleiht $master einen Angriffsbonus.")
-//        master.attackBoost += 5
-//    }
-
-    /**
-     * Schwächt die Verteidigung eines Kultivatorziels.
-     * @param target Der Kultivator, dessen Verteidigung geschwächt wird.
-     */
-
-    fun weakenEnemiesDefense(target: Cultivator) {
-        println("$name schwächt die Verteidigung von ${target.name}.")
-        target.defenseValue -= 5
+        /**
+         * Initialisiert die Singleton-Instanz des DualMinion.
+         */
+        private fun initialize() {
+            instance = DualMinion()
+        }
     }
-
-    /**
-     * Verwirrt einen Kultivator, wodurch dieser seine nächste Aktion verliert.
-     * @param target Der Kultivator, der verwirrt wird.
-     */
-    fun confuseEnemy(target: Cultivator) {
-        println("$name verwirrt ${target.name}, was ihn seine nächste Aktion verlieren lässt.")
-        target.isConfused = true
-    }
-
-    /**
-     * Heilt den Meister um einen festen Betrag an Gesundheitspunkten.
-     */
-//    fun healMasterFlat() {
-//        val healAmount = 10
-//        println("$name heilt $master um $healAmount HP.")
-//        master.healthPoints += healAmount.coerceAtMost(master.maxHealthPoints - master.healthPoints)
-//    }
-
 }

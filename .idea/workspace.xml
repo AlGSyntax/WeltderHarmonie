@@ -5,11 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0fceb7d9-d8bc-4ad6-94f9-7d11963f0aa8" name="Changes" comment="Änderungen vorgenommen.">
+      <change afterPath="$PROJECT_DIR$/src/ReadMe.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Action.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Action.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Bag.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bag.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CombatSystem.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/CombatSystem.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Cultivator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cultivator.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DualMinion.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/DualMinion.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DualisticDemon.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/DualisticDemon.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Enemy.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Enemy.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Geomancer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Geomancer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Item.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Item.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Shaman.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Shaman.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TaoistMage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/TaoistMage.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +36,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -36,17 +48,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "vcs.patch.path": "/Users/alvaro/Downloads"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vcs.patch.path&quot;: &quot;/Users/alvaro/Downloads&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="MainKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="MainKt" />
@@ -142,7 +154,15 @@
       <option name="project" value="LOCAL" />
       <updated>1699798391613</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Änderungen vorgenommen.">
+      <option name="closed" value="true" />
+      <created>1699867321718</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1699867321718</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -170,8 +190,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="." />
-    <MESSAGE value="Änderungen vorgenommen." />
     <MESSAGE value="Patch One" />
-    <option name="LAST_COMMIT_MESSAGE" value="Patch One" />
+    <MESSAGE value="Änderungen vorgenommen." />
+    <option name="LAST_COMMIT_MESSAGE" value="Änderungen vorgenommen." />
   </component>
 </project>

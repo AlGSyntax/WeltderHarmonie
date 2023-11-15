@@ -1,81 +1,97 @@
-import kotlin.random.Random as Random1
-
 /**
- * A Taoist Mage is a specialized form of a Cultivator (hero) with additional magical abilities.
- * They have the ability to cast spells, create magical items, summon spirits, and strengthen allies.
+ * Spezifischer Heldentyp: Taoistischer Magier.
+ * Erbt von der Basisklasse Cultivator und implementiert spezielle Aktionen wie Zauberangriffe und Verteidigungsmagie.
  *
- * @property name: The unique name of the Taoist Mage.
- * @property healthPoints: The health points of the Taoist Mage.
- * @property level: The current level of the Taoist Mage.
- * @property actions: A list of actions that the Taoist Mage can perform.
- * @property defenseStatus: Indicates whether the Taoist Mage is defending or not.
- * @property spellPower: The strength of the Taoist Mage's spell power, determining the damage of their spells.
- * @constructor Creates a new Taoist Mage with a name, health points, level, a list of actions, a defense status,
- * and a specific spell power.
+ * @param name Name des TaoistMage.
+ * @param healthPoints Gesundheitspunkte des TaoistMage.
+ * @param actions Liste der Aktionen, die der TaoistMage ausführen kann.
+ * @param spellPower Stärke der Zauberkraft des TaoistMage, beeinflusst den Schaden seiner Angriffe.
  */
+
+
 open class TaoistMage(
     name: String,
     healthPoints: Int,
-    level: Int,
     actions: MutableList<Action>,
-    defenseStatus: Boolean,
-    val spellPower: Int
+    private val spellPower: Int
 ) : Cultivator(
-    name, healthPoints, level, actions,
-    defenseValue = 20
+    name, healthPoints, actions, 20
 ) {
 
-    override var defensePower = 10 // Initial value of the Taoist Mage's defense power.
-
-    /**
-     * Casts a spell that inflicts damage on the opponent and reduces the defense power of the Taoist Mage.
-     *
-     * @param spellName: The name of the spell being cast.
-     * @param opponent: The opponent on which the spell is cast.
-     */
-    override fun attack(enemy: Enemy){
-        var spellName = "Firestorm"
-        val spellDamage = spellPower * 2
-        defensePower -= 5
-        enemy.healthPoints -= spellDamage
-        println("$name casts the spell $spellName, reducing their own defense to $defensePower.")
+    init {
+        defensePower = 10// Grundverteidigungswert für den TaoistMage.
     }
 
+
     /**
-     * Uses an armor spell to temporarily increase the defense of allies.
+     * Führt einen Zauberangriff auf den angegebenen Gegner aus.
+     * Dieser Angriff verursacht hohen Schaden, reduziert aber auch die Verteidigung des TaoistMage.
      *
-     * @param ally: The ally whose defense is increased.
+     * @param opponent Der Gegner, der angegriffen wird.
      */
-    override fun defend(ally: Cultivator) {
-        val defenseBoost = 5
-        ally.defensePower += defenseBoost
-        println(
-            "$name uses an armor spell to strengthen the defense of ${ally.name} by ${defenseBoost} points. " +
-                    "$ally.name now has a defense of ${ally.defensePower}."
-        )
+    override fun attack(opponent: Enemy) {
+        val spellName = "Feuersturm"// Name des Zaubers.
+        val spellDamage = spellPower * 2// Berechnung des Zauberschadens.
+        defensePower -= 5// Reduzierung der Verteidigung nach dem Angriff.
+        opponent.healthPoints -= spellDamage// Anwendung des Schadens auf den Gegner.
+        println("$name benutzt den Zauberspruch $spellName und verursacht $spellDamage Schaden.")
+        println("Dabei reduziert er jedoch die eigene Verteidigung auf $defensePower.")
     }
 
+
+    /**
+     * Verstärkt die Verteidigung eines anderen Helden.
+     * Dieser Zauber erhöht die Verteidigungskraft des angegebenen Helden.
+     *
+     * @param cultivator Der Held, dessen Verteidigung verstärkt wird.
+     */
+    override fun defend(cultivator: Cultivator) {
+        val defenseBoost = 5// Menge, um die die Verteidigung erhöht wird.
+        cultivator.defensePower += defenseBoost// Erhöhung der Verteidigung des Helden.
+        println("$name verwendet einen Rüstungszauber, um die Verteidigung von ${cultivator.name} um $defenseBoost Punkte zu stärken.")
+        println("${cultivator.name} hat nun eine Verteidigung von ${cultivator.defensePower}.")
+    }
+
+
+    /**
+     * Heilt einen anderen Helden um einen festgelegten Betrag.
+     * Diese Methode erhöht die Gesundheitspunkte des angegebenen Helden.
+     *
+     * @param cultivator Der Held, der geheilt wird.
+     */
     override fun heal(cultivator: Cultivator) {
-        val healingAmount =  15
+        val healingAmount = 15
         cultivator.healthPoints += healingAmount
-        println(
-            "$name heals $cultivator.name for $healingAmount health points." +
-                    "$cultivator.name now has ${cultivator.healthPoints} health points."
-        )
+        println("$name heilt ${cultivator.name} um $healingAmount Lebenspunkte.")
+        println("${cultivator.name} hat nun ${cultivator.healthPoints} Lebenspunkte.")
     }
 
+
     /**
-     * Summons a spirit that increases the damage value for the next attack of the Taoist Mage,
-     * but at the cost of health points.
+     * Führt eine spezielle Aktion aus, die den Schadenswert des nächsten Angriffs erhöht, aber Lebenspunkte kostet.
+     * Diese Methode kann für kritische Situationen verwendet werden, um den Gegner schnell zu besiegen.
+     *
+     * @param enemy Der Gegner, gegen den der erhöhte Schaden angewendet wird.
      */
     override fun specialAction(enemy: Enemy) {
         val damageBoost = 20
         val healthCost = 15
         healthPoints -= healthCost
         enemy.healthPoints -= damageBoost
-        println(
-            "$name uses the spirit to increase the damage value of the next attack by $damageBoost and lose $healthCost health points. " +
-                    "Remaining health points: $healthPoints."
-        )
+        println("$name nutzt den Geist, um den Schadenswert des nächsten Angriffs um $damageBoost zu erhöhen und opfert dabei $healthCost Lebenspunkte.")
+        println("Verbleibende Lebenspunkte: $healthPoints.")
     }
+
+
+    /**
+     * Gibt eine String-Repräsentation des TaoistMage zurück.
+     * Nützlich für Debugging und Protokollbergungszwecke.
+     *
+     * @return String-Repräsentation des TaoistMage.
+     */
+    override fun toString(): String {
+        return "TaoistMage(spellPower=$spellPower, defensePower=$defensePower)"
+    }
+
+
 }

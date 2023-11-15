@@ -1,64 +1,66 @@
 /**
- * Item represents objects with various effects that a Cultivator can use.
- * Each item has a name and a description of its effect.
+ * Repräsentiert ein Gegenstand im Spiel.
+ * Diese Klasse wird verwendet, um verschiedene Arten von Gegenständen darzustellen, die von Charakteren verwendet werden können.
  *
- * @property name The unique name of the item.
- * @property effectDescription The description of the effect the item has when used.
+ * @param name Der Name des Gegenstandes.
+ * @param quantity Die Anzahl dieses Gegenstandes, die verfügbar ist.
  */
-open class Item(val name: String, val effectDescription: String, var quantity: Int = 1) {
+
+
+open class Item(val name: String, var quantity: Int = 1) {
 
 
     /**
-     * Called to apply the item to a Cultivator target and trigger its effect.
-     * The effect varies depending on the item name and can affect energy, damage, defense, or health.
+     * Verwendet den Gegenstand auf einen bestimmten Charakter (Cultivator).
+     * Abhängig vom Namen des Gegenstandes werden unterschiedliche Effekte auf den Charakter angewendet.
      *
-     * @param target The Cultivator on whom the item is applied.
-     * @return A message describing the result of the application.
+     * @param target Der Charakter, auf den der Gegenstand angewendet wird.
+     * @return Eine Beschreibung des Effekts, der durch die Verwendung des Gegenstandes erzielt wurde.
      */
     fun use(target: Cultivator): String {
         when (name) {
-            "Sky Staff" -> {
-                val energyBoost = 10
+            "Himmelsstab" -> {
+                val energyBoost = 10// Energieverstärkung.
                 target.energy += energyBoost
-                return "$name has been used. ${target.name} now has ${target.energy} energy."
+                return "$name wurde verwendet. ${target.name} hat nun ${target.energy} Energie."
             }
 
             "Yin Yang Ring" -> {
                 val damageBoost = 10
-                target.damageValue += damageBoost
-                return "$name has been used. The damage value of ${target.name} has increased by $damageBoost."
+                target.damageValue += damageBoost// Schadensverstärkung.
+                return "$name wurde verwendet. Der Schadenswert von ${target.name} wurde um $damageBoost erhöht."
             }
 
-            "Qi Harmonizer" -> {
-                target.defenseValue += 10
-                return "$name has been used. The defense value of ${target.name} has increased by 10."
+            "Qi-Harmonisation" -> {
+                target.defenseValue += 10// Verteidigungserhöhung.
+                return "$name wurde verwendet. Der Verteidigungswert von ${target.name} wurde um 10 erhöht."
             }
 
-            "Dragon Pearl" -> {
-                val healAmount = 20
+            "Drachenperle" -> {
+                val healAmount = 20// Heilungsmenge.
                 target.healthPoints += healAmount
-                return "$name has been used. ${target.name} now has ${target.healthPoints} health points."
+                return "$name wurde verwendet. ${target.name} hat nun ${target.healthPoints} Lebenspunkte."
             }
 
-            "Sun Stone" -> {
-                val energyBoost = 10
+            "Sonnenstein" -> {
+                val energyBoost = 10// Energieverstärkung.
                 target.energy += energyBoost
-                return "$name has been used. ${target.name} now has ${target.energy} energy."
+                return "$name wurde verwendet. ${target.name} hat nun ${target.energy} Energie."
             }
 
-            "Jade Amulet" -> {
-                val originalDefensePower = target.defensePower
-                target.defensePower += 10
-                return "$name has been used. The defense power of ${target.name} has temporarily increased to ${target.defensePower}."
+            "Jadeamulett" -> {
+                target.defensePower
+                target.defensePower += 10// Verteidigungskrafterhöhung.
+                return "$name wurde verwendet. Die Verteidigungskraft von ${target.name} hat vorübergehend auf ${target.defensePower} zugenommen."
             }
 
-            "Thunderbolt" -> {
-                val damageBoost = 20
+            "Donnersegen" -> {
+                val damageBoost = 20// Schadensverstärkung.
                 target.damageValue += damageBoost
-                return "$name has been used. The damage value of ${target.name} has increased by $damageBoost."
+                return "$name wurde verwendet. Der Schadenswert von ${target.name} wurde um $damageBoost erhöht."
             }
 
-            else -> return "This item is not known."
+            else -> return "Dieser Gegenstand ist nicht bekannt."
         }
     }
 }
